@@ -8,22 +8,109 @@
     </head>
     <body>
         <div class="main">
+            <script type="module" defer>
+                import {
+                    animate,
+                    spring,
+                    stagger,
+                } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
+
+                // Wait for the DOM to be fully loaded
+                document.addEventListener('DOMContentLoaded', () => {
+                    const hudGrid = document.querySelector('.hud-grid');
+                    const title = document.querySelector('.title');
+                    const titleText = document.querySelector('.title h1');
+                    const ondas = document.querySelector('.title img');
+
+                    // Set initial states
+                    hudGrid.style.opacity = '0';
+
+                    // Function to handle scroll animation
+                    function handleScroll() {
+                        const scrollPosition = window.scrollY;
+                        const windowHeight = window.innerHeight;
+                        const scrollPercentage = Math.min(
+                            scrollPosition / (windowHeight * 0.01),
+                            1
+                        );
+
+                        // Fade out title and ondas
+                        animate(
+                            titleText,
+                            {
+                                opacity: 1 - scrollPercentage,
+                                y: -100 * scrollPercentage,
+                            },
+                            { duration: 0.3 }
+                        );
+                        animate(
+                            ondas,
+                            {
+                                opacity: Math.max(0.2 - scrollPercentage, 0),
+                                y: -200 * scrollPercentage,
+                            },
+                            { duration: 0.3 }
+                        );
+
+                        // Fade in hud-grid
+                        animate(
+                            hudGrid,
+                            {
+                                opacity: scrollPercentage,
+                                y: -10 * scrollPercentage,
+                            },
+                            { duration: 0.3 }
+                        );
+                    }
+
+                    // Add scroll event listener
+                    window.addEventListener('scroll', handleScroll);
+
+                    // Animate grid items with stagger effect on page load
+                    const gridItems =
+                        document.querySelectorAll('.hud-grid-item');
+                    animate(
+                        gridItems,
+                        {
+                            opacity: [0, 1],
+                            y: [20, 0],
+                        },
+                        {
+                            delay: stagger(0.05),
+                            easing: spring({ stiffness: 100, damping: 15 }),
+                            duration: 0.8,
+                        }
+                    );
+                });
+            </script>
             <section class="title">
-                <h1>Inteligencia para decisiones estratégicas</h1>
+                <h1>Inteligencia para <br />decisiones estratégicas</h1>
                 <img src="ondas.svg" width="100%" alt="ondas" />
             </section>
             <section class="content">
+                <button class="cta">Solicitá tu cotización</button>
                 <div class="computer-container">
+                    <img
+                        src="logo Ecolatina.png"
+                        width="40%"
+                        alt="logo"
+                        class="logo"
+                    />
+
                     <img src="compu.png" width="100%" alt="computadora" />
                 </div>
                 <div class="hud-grid">
-                    <div class="hud-grid-item left-aligned">
+                    <div class="hud-grid-item left-aligned top-aligned">
                         <h2>Red de alianzas <br />estratégicas</h2>
                     </div>
-                    <div class="hud-grid-item empty"></div>
-                    <div class="hud-grid-item empty"></div>
+                    <div class="hud-grid-item empty top-aligned left-aligned">
+                        <div class="square"></div>
+                    </div>
+                    <div class="hud-grid-item empty top-aligned right-aligned">
+                        <div class="square"></div>
+                    </div>
 
-                    <div class="hud-grid-item right-aligned">
+                    <div class="hud-grid-item right-aligned top-aligned">
                         <h2>Información <br />estratégica diaria</h2>
                     </div>
                     <div class="hud-grid-item left-aligned">
@@ -32,22 +119,38 @@
                             (Webinars, encuentros inhouse)
                         </h2>
                     </div>
-                    <div class="hud-grid-item empty"></div>
-                    <div class="hud-grid-item empty"></div>
+                    <div
+                        class="hud-grid-item empty center-aligned left-aligned"
+                    >
+                        <div class="square"></div>
+                    </div>
+                    <div
+                        class="hud-grid-item empty center-aligned right-aligned"
+                    >
+                        <div class="square"></div>
+                    </div>
 
-                    <div class="hud-grid-item right-aligned">
+                    <div class="hud-grid-item right-aligned selected">
                         <h2>Noticias directo <br />a tu celular (Appvisor)</h2>
                     </div>
-                    <div class="hud-grid-item left-aligned">
+                    <div class="hud-grid-item left-aligned bottom-aligned">
                         <h2>
                             Contacto directo<br />
                             con economistas
                         </h2>
                     </div>
-                    <div class="hud-grid-item empty"></div>
-                    <div class="hud-grid-item empty"></div>
+                    <div
+                        class="hud-grid-item empty bottom-aligned left-aligned"
+                    >
+                        <div class="square"></div>
+                    </div>
+                    <div
+                        class="hud-grid-item empty bottom-aligned right-aligned"
+                    >
+                        <div class="square"></div>
+                    </div>
 
-                    <div class="hud-grid-item right-aligned">
+                    <div class="hud-grid-item right-aligned bottom-aligned">
                         <h2>
                             Cobertura completa<br />
                             y transversal
@@ -55,6 +158,14 @@
                     </div>
                 </div>
             </section>
+            <div class="benefit-description">
+                <h3>Actualización en tiempo real con AppVisor</h3>
+                <p>
+                    Accedé a información clave en cualquier momento a través de
+                    AppVisor, la plataforma líder en inteligencia económica para
+                    ejecutivos.
+                </p>
+            </div>
         </div>
     </body>
 </html>
