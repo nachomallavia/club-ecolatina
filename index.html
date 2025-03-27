@@ -17,20 +17,26 @@
 
                 // Wait for the DOM to be fully loaded
                 document.addEventListener('DOMContentLoaded', () => {
+                    const computer = document.querySelector('.computer');
+                    const logo = document.querySelector('.logo');
                     const hudGrid = document.querySelector('.hud-grid');
                     const title = document.querySelector('.title');
                     const titleText = document.querySelector('.title h1');
                     const ondas = document.querySelector('.title img');
+                    const subheader = document.querySelector('.subheader');
+                    const benefitDescription = document.querySelector(
+                        '.benefit-description'
+                    );
 
                     // Set initial states
                     hudGrid.style.opacity = '0';
-
+                    benefitDescription.style.opacity = '0';
                     // Function to handle scroll animation
                     function handleScroll() {
                         const scrollPosition = window.scrollY;
                         const windowHeight = window.innerHeight;
                         const scrollPercentage = Math.min(
-                            scrollPosition / (windowHeight * 0.01),
+                            scrollPosition / (windowHeight * 0.02),
                             1
                         );
 
@@ -46,8 +52,16 @@
                         animate(
                             ondas,
                             {
-                                opacity: Math.max(0.2 - scrollPercentage, 0),
+                                opacity: Math.max(0.5 - scrollPercentage, 0),
                                 y: -200 * scrollPercentage,
+                                scale: 1 + scrollPercentage * 0.025,
+                            },
+                            { duration: 0.3 }
+                        );
+                        animate(
+                            subheader,
+                            {
+                                opacity: 1 - scrollPercentage,
                             },
                             { duration: 0.3 }
                         );
@@ -57,7 +71,29 @@
                             hudGrid,
                             {
                                 opacity: scrollPercentage,
-                                y: -10 * scrollPercentage,
+                                y: -50 * scrollPercentage,
+                            },
+                            { duration: 0.3 }
+                        );
+
+                        animate(
+                            benefitDescription,
+                            { opacity: scrollPercentage },
+                            { duration: 0.3 }
+                        );
+                        animate(
+                            logo,
+                            {
+                                opacity: 1 - scrollPercentage,
+                            },
+                            { duration: 0.3 }
+                        );
+                        animate(
+                            computer,
+                            {
+                                scale: 1 + scrollPercentage * 0.025,
+                                translate:
+                                    '0px ' + scrollPercentage * -50 + 'px',
                             },
                             { duration: 0.3 }
                         );
@@ -83,6 +119,29 @@
                     );
                 });
             </script>
+            <script>
+                benefits = {
+                    'red-alianzas': {
+                        title: 'Red de alianzas estratégicas',
+                        description:
+                            'Accedé a información clave en cualquier momento a través de AppVisor, la plataforma líder en inteligencia económica para ejecutivos.',
+                    },
+                    'informacion-estratetica-diaria': {},
+                };
+                document.addEventListener('DOMContentLoaded', () => {
+                    const hudGridItems =
+                        document.querySelectorAll('.hud-grid-item');
+                    hudGridItems.forEach((item) => {
+                        item.addEventListener('click', () => {
+                            console.log(`clicked ${item}`);
+                            hudGridItems.forEach((item) => {
+                                item.classList.remove('selected');
+                            });
+                            item.classList.add('selected');
+                        });
+                    });
+                });
+            </script>
             <section class="title">
                 <h1>Inteligencia para <br />decisiones estratégicas</h1>
                 <img src="ondas.svg" width="100%" alt="ondas" />
@@ -91,26 +150,32 @@
                 <button class="cta">Solicitá tu cotización</button>
                 <div class="computer-container">
                     <img
+                        src="compu.png"
+                        width="100%"
+                        alt="computadora"
+                        class="computer"
+                    />
+                    <img
                         src="logo Ecolatina.png"
                         width="40%"
                         alt="logo"
                         class="logo"
                     />
-
-                    <img src="compu.png" width="100%" alt="computadora" />
                 </div>
                 <div class="hud-grid">
                     <div class="hud-grid-item left-aligned top-aligned">
                         <h2>Red de alianzas <br />estratégicas</h2>
-                    </div>
-                    <div class="hud-grid-item empty top-aligned left-aligned">
                         <div class="square"></div>
                     </div>
-                    <div class="hud-grid-item empty top-aligned right-aligned">
-                        <div class="square"></div>
-                    </div>
+                    <div
+                        class="hud-grid-item empty top-aligned left-aligned"
+                    ></div>
+                    <div
+                        class="hud-grid-item empty top-aligned right-aligned"
+                    ></div>
 
                     <div class="hud-grid-item right-aligned top-aligned">
+                        <div class="square"></div>
                         <h2>Información <br />estratégica diaria</h2>
                     </div>
                     <div class="hud-grid-item left-aligned">
@@ -118,19 +183,17 @@
                             Networking High Level <br />
                             (Webinars, encuentros inhouse)
                         </h2>
+                        <div class="square"></div>
                     </div>
                     <div
                         class="hud-grid-item empty center-aligned left-aligned"
-                    >
-                        <div class="square"></div>
-                    </div>
+                    ></div>
                     <div
                         class="hud-grid-item empty center-aligned right-aligned"
-                    >
-                        <div class="square"></div>
-                    </div>
+                    ></div>
 
                     <div class="hud-grid-item right-aligned selected">
+                        <div class="square"></div>
                         <h2>Noticias directo <br />a tu celular (Appvisor)</h2>
                     </div>
                     <div class="hud-grid-item left-aligned bottom-aligned">
@@ -138,34 +201,50 @@
                             Contacto directo<br />
                             con economistas
                         </h2>
+                        <div class="square"></div>
                     </div>
                     <div
                         class="hud-grid-item empty bottom-aligned left-aligned"
-                    >
-                        <div class="square"></div>
-                    </div>
+                    ></div>
                     <div
                         class="hud-grid-item empty bottom-aligned right-aligned"
-                    >
-                        <div class="square"></div>
-                    </div>
+                    ></div>
 
                     <div class="hud-grid-item right-aligned bottom-aligned">
+                        <div class="square"></div>
                         <h2>
                             Cobertura completa<br />
                             y transversal
                         </h2>
                     </div>
                 </div>
+                <div class="benefit-description">
+                    <h3>Actualización en tiempo real con AppVisor</h3>
+                    <p>
+                        Accedé a información clave en cualquier momento a través
+                        de AppVisor, la plataforma líder en inteligencia
+                        económica para ejecutivos.
+                    </p>
+                </div>
             </section>
-            <div class="benefit-description">
-                <h3>Actualización en tiempo real con AppVisor</h3>
+            <section class="subheader">
                 <p>
-                    Accedé a información clave en cualquier momento a través de
-                    AppVisor, la plataforma líder en inteligencia económica para
-                    ejecutivos.
+                    Accedé a la información económica más confiable y análisis
+                    clave para anticiparte al mercado.<br />
+                    <strong>
+                        Con insights diarios, asesoramiento directo y networking
+                        exclusivo.
+                    </strong>
                 </p>
-            </div>
+            </section>
+            <section class="display"></section>
+        </div>
+        <div class="footer">
+            <p>
+                <strong>Club Ecolatina</strong>
+                <br />
+                <span>Club de ejecutivos</span>
+            </p>
         </div>
     </body>
 </html>

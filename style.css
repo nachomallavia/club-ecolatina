@@ -3,6 +3,7 @@
     --ecolatina-green: #00625d;
     --ecolatina-green-2: #34a19b;
     --ecolatina-aqua: #7bbfb7;
+    --ecolatina-aqua-2: #b6f4ed;
     --ecolatina-light-gray: #f7f7f7;
 }
 
@@ -19,6 +20,7 @@
     height: 100vh;
     background-color: var(--ecolatina-light-gray);
     position: relative;
+    overflow: hidden;
 }
 .title {
     width: 100%;
@@ -30,7 +32,7 @@
     padding-top: 50px;
 }
 .title h1 {
-    font-size: 3rem;
+    font-size: 2.65rem;
     font-weight: 700;
     text-align: center;
     line-height: 1.125;
@@ -41,7 +43,14 @@
     left: 0;
     width: 100%;
     height: 80%;
-    opacity: 0.2;
+    opacity: 0.5;
+}
+.subheader {
+    position: absolute;
+    bottom: 12%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 .content {
     position: absolute;
@@ -62,6 +71,10 @@
     max-width: 1000px;
     z-index: 1;
 }
+.computer {
+    filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+}
+
 .logo {
     position: absolute;
     top: 40%;
@@ -78,8 +91,9 @@
 
     width: 200px;
     background-color: var(--ecolatina-green);
-    color: white;
-    border: 1px solid var(--ecolatina-aqua);
+    font-size: 1rem;
+    color: var(--ecolatina-aqua-2);
+    border: 1px solid var(--ecolatina-aqua-2);
     border-radius: 5px;
     padding: 10px;
     z-index: 20;
@@ -109,6 +123,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 .hud-grid-item:hover {
     cursor: pointer;
@@ -119,6 +134,23 @@
 .hud-grid-item.selected h2 {
     font-weight: 700;
     color: var(--ecolatina-green);
+    position: relative;
+}
+.hud-grid-item.selected.right-aligned h2:after {
+    content: '';
+    border-bottom: 8px solid var(--ecolatina-aqua);
+    width: 50%;
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+}
+.hud-grid-item.selected.left-aligned h2:after {
+    content: '';
+    border-bottom: 8px solid var(--ecolatina-aqua);
+    width: 50%;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
 }
 .hud-grid-item.top-aligned {
     align-items: flex-start;
@@ -132,11 +164,14 @@
 .hud-grid-item.right-aligned {
     text-align: right;
 }
+.hud-grid-item.center-aligned {
+    align-items: baseline;
+}
 .hud-grid-item h2 {
     font-size: 1.2rem;
     font-weight: 400;
     width: 100%;
-    border-bottom: 1px solid var(--ecolatina-aqua);
+    border-bottom: 2px solid var(--ecolatina-aqua);
 }
 .hud-grid-item.empty.left-aligned {
     /* border: 1px solid var(--ecolatina-aqua); */
@@ -152,4 +187,11 @@
     height: 1.25rem;
     border: 2px solid var(--ecolatina-aqua);
     border-radius: 0.25rem;
+}
+.benefit-description {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
