@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <div class="main">
+        <main class="main">
             <script type="module" defer>
                 import {
                     animate,
@@ -29,14 +29,14 @@
                     );
 
                     // Set initial states
-                    hudGrid.style.opacity = '0';
-                    benefitDescription.style.opacity = '0';
+                    hudGrid.style.opacity = '1';
+                    benefitDescription.style.opacity = '1';
                     // Function to handle scroll animation
                     function handleScroll() {
                         const scrollPosition = window.scrollY;
                         const windowHeight = window.innerHeight;
                         const scrollPercentage = Math.min(
-                            scrollPosition / (windowHeight * 0.02),
+                            scrollPosition / (windowHeight * 0.1),
                             1
                         );
 
@@ -53,7 +53,7 @@
                             ondas,
                             {
                                 opacity: Math.max(0.5 - scrollPercentage, 0),
-                                y: -200 * scrollPercentage,
+                                y: -50 * scrollPercentage,
                                 scale: 1 + scrollPercentage * 0.025,
                             },
                             { duration: 0.3 }
@@ -71,7 +71,7 @@
                             hudGrid,
                             {
                                 opacity: scrollPercentage,
-                                y: -50 * scrollPercentage,
+                                // y: -100 * scrollPercentage,
                             },
                             { duration: 0.3 }
                         );
@@ -92,8 +92,6 @@
                             computer,
                             {
                                 scale: 1 + scrollPercentage * 0.025,
-                                translate:
-                                    '0px ' + scrollPercentage * -50 + 'px',
                             },
                             { duration: 0.3 }
                         );
@@ -120,17 +118,50 @@
                 });
             </script>
             <script>
-                benefits = {
-                    'red-alianzas': {
-                        title: 'Red de alianzas estratégicas',
-                        description:
-                            'Accedé a información clave en cualquier momento a través de AppVisor, la plataforma líder en inteligencia económica para ejecutivos.',
+                benefits = [
+                    {
+                        title: 'Red de alianzas',
+                        subtitle: 'Alianzas estratégicas para una visión 360°',
+                        description: `<p>Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.</p>`,
                     },
-                    'informacion-estratetica-diaria': {},
-                };
+                    {
+                        title: 'Información estratégica diaria',
+                        subtitle:
+                            'Insights diarios para decisiones estratégicas',
+                        description: `<p>Accedé a reportes exclusivos con datos clave y análisis en tiempo real<br/> para respaldar la toma de decisiones</p>`,
+                    },
+                    {
+                        title: 'Networking High Level (Webinars, encuentros inhouse)',
+                        subtitle: 'Networking exclusivo con líderes del sector',
+                        description: `<p>Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.</p>`,
+                    },
+                    {
+                        title: 'Noticias directo a tu celular (Appvisor)',
+                        subtitle: 'Actualización en tiempo real',
+                        description: `<p>Accedé a información clave en cualquier momento a través de AppVisor,<br/> la plataforma líder en inteligencia económica para ejecutivos.</p>`,
+                    },
+                    {
+                        title: 'Contacto directo con economistas',
+                        subtitle:
+                            'Acceso directo a los principales economistas',
+                        description: `<p>Asesoramiento inmediato de nuestros expertos vía WhatsApp,<br/> teléfono o email, cuando tu negocio lo requiera.</p>`,
+                    },
+                    {
+                        title: 'Cobertura completa y transversal',
+                        subtitle: 'Visión integral para toda la organización',
+                        description: `<p>Información alineada para toda la empresa, garantizando coherencia<br/> 
+                        en el análisis económico y estratégico.</p>`,
+                    },
+                ];
                 document.addEventListener('DOMContentLoaded', () => {
+                    benefits.forEach((benefit, index) => {
+                        const benefitTitles =
+                            document.querySelectorAll('.benefit-title');
+                        benefitTitles[index].textContent = benefit.title;
+                    });
                     const hudGridItems =
                         document.querySelectorAll('.hud-grid-item');
+
                     hudGridItems.forEach((item) => {
                         item.addEventListener('click', () => {
                             console.log(`clicked ${item}`);
@@ -138,34 +169,36 @@
                                 item.classList.remove('selected');
                             });
                             item.classList.add('selected');
+                            const benefitIndex = item.dataset.benefitIndex;
+                            const benefit = benefits[benefitIndex];
+                            document.getElementById(
+                                'benefit-subtitle'
+                            ).textContent = benefit.subtitle;
+                            document.getElementById(
+                                'benefit-description-text'
+                            ).innerHTML = benefit.description;
+
+                            console.log(benefit);
                         });
                     });
                 });
             </script>
+
             <section class="title">
                 <h1>Inteligencia para <br />decisiones estratégicas</h1>
                 <img src="ondas.svg" width="100%" alt="ondas" />
             </section>
-            <section class="content">
-                <button class="cta">Solicitá tu cotización</button>
-                <div class="computer-container">
-                    <img
-                        src="compu.png"
-                        width="100%"
-                        alt="computadora"
-                        class="computer"
-                    />
-                    <img
-                        src="logo Ecolatina.png"
-                        width="40%"
-                        alt="logo"
-                        class="logo"
-                    />
-                </div>
+            <div class="computer-container">
                 <div class="hud-grid">
-                    <div class="hud-grid-item left-aligned top-aligned">
-                        <h2>Red de alianzas <br />estratégicas</h2>
-                        <div class="square"></div>
+                    <div
+                        class="hud-grid-item left-aligned top-aligned"
+                        data-benefit-index="0"
+                    >
+                        <h2 class="benefit-title">
+                            Red de alianzas <br />estratégicas
+                        </h2>
+                        <img src="hud-top-left.svg" alt="" />
+                        <!-- <div class="square"></div> -->
                     </div>
                     <div
                         class="hud-grid-item empty top-aligned left-aligned"
@@ -174,16 +207,24 @@
                         class="hud-grid-item empty top-aligned right-aligned"
                     ></div>
 
-                    <div class="hud-grid-item right-aligned top-aligned">
+                    <div
+                        class="hud-grid-item right-aligned top-aligned"
+                        data-benefit-index="1"
+                    >
                         <div class="square"></div>
-                        <h2>Información <br />estratégica diaria</h2>
+                        <h2 class="benefit-title">
+                            Información <br />estratégica diaria
+                        </h2>
                     </div>
-                    <div class="hud-grid-item left-aligned">
-                        <h2>
+                    <div
+                        class="hud-grid-item left-aligned"
+                        data-benefit-index="2"
+                    >
+                        <h2 class="benefit-title">
                             Networking High Level <br />
                             (Webinars, encuentros inhouse)
                         </h2>
-                        <div class="square"></div>
+                        <img src="hud-mid-left.svg" alt="" />
                     </div>
                     <div
                         class="hud-grid-item empty center-aligned left-aligned"
@@ -192,16 +233,23 @@
                         class="hud-grid-item empty center-aligned right-aligned"
                     ></div>
 
-                    <div class="hud-grid-item right-aligned selected">
-                        <div class="square"></div>
-                        <h2>Noticias directo <br />a tu celular (Appvisor)</h2>
+                    <div
+                        class="hud-grid-item right-aligned selected"
+                        data-benefit-index="3"
+                    >
+                        <h2 class="benefit-title">
+                            Noticias directo <br />a tu celular (Appvisor)
+                        </h2>
                     </div>
-                    <div class="hud-grid-item left-aligned bottom-aligned">
-                        <h2>
+                    <div
+                        class="hud-grid-item left-aligned bottom-aligned"
+                        data-benefit-index="4"
+                    >
+                        <h2 class="benefit-title">
                             Contacto directo<br />
                             con economistas
                         </h2>
-                        <div class="square"></div>
+                        <img src="hud-bottom-left.svg" alt="" />
                     </div>
                     <div
                         class="hud-grid-item empty bottom-aligned left-aligned"
@@ -210,23 +258,35 @@
                         class="hud-grid-item empty bottom-aligned right-aligned"
                     ></div>
 
-                    <div class="hud-grid-item right-aligned bottom-aligned">
+                    <div
+                        class="hud-grid-item right-aligned bottom-aligned"
+                        data-benefit-index="5"
+                    >
                         <div class="square"></div>
-                        <h2>
+                        <h2 class="benefit-title">
                             Cobertura completa<br />
                             y transversal
                         </h2>
                     </div>
                 </div>
-                <div class="benefit-description">
-                    <h3>Actualización en tiempo real con AppVisor</h3>
-                    <p>
-                        Accedé a información clave en cualquier momento a través
-                        de AppVisor, la plataforma líder en inteligencia
-                        económica para ejecutivos.
-                    </p>
+                <div class="background-container">
+                    <button class="cta">Solicitá tu cotización</button>
+                    <img src="Compu.png" alt="computadora" class="computer" />
+                    <img src="logo Ecolatina.png" alt="logo" class="logo" />
                 </div>
-            </section>
+                <div class="benefit-description">
+                    <h3 id="benefit-subtitle">Actualización en tiempo real</h3>
+                    <div id="benefit-description-text">
+                        <p>
+                            Accedé a información clave en cualquier momento a
+                            través de <strong>AppVisor</strong>, <br />la
+                            plataforma líder en inteligencia económica para
+                            ejecutivos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <section class="subheader">
                 <p>
                     Accedé a la información económica más confiable y análisis
@@ -238,13 +298,13 @@
                 </p>
             </section>
             <section class="display"></section>
-        </div>
-        <div class="footer">
-            <p>
-                <strong>Club Ecolatina</strong>
-                <br />
-                <span>Club de ejecutivos</span>
-            </p>
-        </div>
+            <div class="footer">
+                <p>
+                    <strong>Club Ecolatina</strong>
+                    <br />
+                    <span>Club de ejecutivos</span>
+                </p>
+            </div>
+        </main>
     </body>
 </html>

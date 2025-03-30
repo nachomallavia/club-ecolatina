@@ -20,7 +20,7 @@
     height: 100vh;
     background-color: var(--ecolatina-light-gray);
     position: relative;
-    overflow: hidden;
+    overflow: scroll;
 }
 .title {
     width: 100%;
@@ -29,30 +29,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 50px;
 }
 .title h1 {
     font-size: 2.65rem;
     font-weight: 700;
     text-align: center;
     line-height: 1.125;
+    margin-top: 3rem;
 }
-.title img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80%;
-    opacity: 0.5;
-}
-.subheader {
+
+/* .subheader {
     position: absolute;
     bottom: 12%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-}
-.content {
+} */
+/* .content {
     position: absolute;
     top: 0;
     left: 0;
@@ -61,34 +54,39 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
+
 .computer-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70%;
+    width: 50%;
     max-width: 1000px;
     z-index: 1;
 }
+
 .computer {
     filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+    width: 100%;
+    height: 100%;
+    z-index: 2;
 }
 
 .logo {
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40%;
+    width: 50%;
     max-width: 500px;
+    z-index: 3;
 }
 .cta {
     position: absolute;
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-
     width: 200px;
     background-color: var(--ecolatina-green);
     font-size: 1rem;
@@ -96,7 +94,7 @@
     border: 1px solid var(--ecolatina-aqua-2);
     border-radius: 5px;
     padding: 10px;
-    z-index: 20;
+    z-index: 200;
     cursor: pointer;
 }
 .cta:hover {
@@ -107,23 +105,35 @@
     background-color: var(--ecolatina-aqua);
     color: white;
 }
+
 .hud-grid {
-    width: 90%;
-    max-width: 1400px;
-    height: 480px;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 640px;
+    gap: 4rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    z-index: 2;
+    z-index: 25;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .hud-grid-item {
     font-size: 1rem;
     font-weight: 400;
     /* border: 1px solid var(--ecolatina-aqua); */
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
+}
+.hud-grid-item img {
+    width: 120%;
+    align-self: start;
+    /* height: 100%; */
 }
 .hud-grid-item:hover {
     cursor: pointer;
@@ -155,8 +165,14 @@
 .hud-grid-item.top-aligned {
     align-items: flex-start;
 }
+.hud-grid-item.top-aligned h2 {
+    margin-bottom: 0rem;
+}
 .hud-grid-item.bottom-aligned {
     align-items: flex-end;
+}
+.hud-grid-item.bottom-aligned h2 {
+    margin-bottom: -3rem;
 }
 .hud-grid-item.left-aligned {
     text-align: left;
@@ -171,7 +187,9 @@
     font-size: 1.2rem;
     font-weight: 400;
     width: 100%;
-    border-bottom: 2px solid var(--ecolatina-aqua);
+    line-height: 1.2;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 1);
+    /* border-bottom: 2px solid var(--ecolatina-aqua); */
 }
 .hud-grid-item.empty.left-aligned {
     /* border: 1px solid var(--ecolatina-aqua); */
@@ -189,9 +207,16 @@
     border-radius: 0.25rem;
 }
 .benefit-description {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     text-align: center;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+.benefit-description h3 {
+    text-transform: uppercase;
+}
+.footer {
+    height: 20vh;
 }
