@@ -1,0 +1,7 @@
+<svg width="472" height="24" viewBox="0 0 472 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_2161_2767" fill="white">
+<rect x="448" width="24" height="24" rx="2"/>
+</mask>
+<rect x="448" width="24" height="24" rx="2" stroke="#7BBFB7" fill="#7BBFB7" stroke-width="6" mask="url(#path-1-inside-1_2161_2767)"/>
+<path d="M0 12H448" stroke="#7BBFB7" stroke-width="3"/>
+</svg>

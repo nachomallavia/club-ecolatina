@@ -29,8 +29,8 @@
                     );
 
                     // Set initial states
-                    hudGrid.style.opacity = '1';
-                    benefitDescription.style.opacity = '1';
+                    hudGrid.style.opacity = '0';
+                    benefitDescription.style.opacity = '0';
                     // Function to handle scroll animation
                     function handleScroll() {
                         const scrollPosition = window.scrollY;
@@ -170,11 +170,19 @@
 
                     hudGridItems.forEach((item) => {
                         item.addEventListener('click', () => {
-                            console.log(`clicked ${item}`);
                             hudGridItems.forEach((item) => {
                                 item.classList.remove('selected');
+                                let img = item.querySelector('img');
+                                if (img && img.src.includes('-selected.svg')) {
+                                    img.src = img.src.replace(
+                                        '-selected.svg',
+                                        '.svg'
+                                    );
+                                }
                             });
                             item.classList.add('selected');
+                            let img = item.querySelector('img');
+                            img.src = img.src.replace('.svg', '-selected.svg');
                             const benefitIndex = item.dataset.benefitIndex;
                             const benefit = benefits[benefitIndex];
                             document.getElementById(
@@ -184,19 +192,29 @@
                                 'benefit-description-text'
                             ).innerHTML = benefit.description;
 
-                            console.log(benefit);
                             document.getElementById('benefit-computer').src =
                                 benefit.computer;
                         });
                     });
                 });
             </script>
+            <div class="scroll-container">
+                <section class="title">
+                    <h1>Inteligencia para <br />decisiones estratégicas</h1>
+                    <img id="ondas" src="ondas.svg" width="100%" alt="ondas" />
+                    <div class="subheader">
+                        <p>
+                            Accedé a la información económica más confiable y
+                            análisis clave para anticiparte al mercado.<br />
+                            <strong>
+                                Con insights diarios, asesoramiento directo y
+                                networking exclusivo.
+                            </strong>
+                        </p>
+                    </div>
+                </section>
+                <button class="cta">Solicitá tu cotización</button>
 
-            <section class="title">
-                <h1>Inteligencia para <br />decisiones estratégicas</h1>
-                <img src="ondas.svg" width="100%" alt="ondas" />
-            </section>
-            <div class="computer-container">
                 <div class="hud-grid">
                     <div
                         class="hud-grid-item left-aligned top-aligned"
@@ -206,7 +224,6 @@
                             Red de alianzas <br />estratégicas
                         </h2>
                         <img src="hud-top-left.svg" alt="" />
-                        <!-- <div class="square"></div> -->
                     </div>
                     <div
                         class="hud-grid-item empty top-aligned left-aligned"
@@ -219,10 +236,10 @@
                         class="hud-grid-item right-aligned top-aligned"
                         data-benefit-index="1"
                     >
-                        <div class="square"></div>
                         <h2 class="benefit-title">
                             Información <br />estratégica diaria
                         </h2>
+                        <img src="hud-top-right.svg" alt="" />
                     </div>
                     <div
                         class="hud-grid-item left-aligned"
@@ -242,18 +259,19 @@
                     ></div>
 
                     <div
-                        class="hud-grid-item right-aligned selected"
+                        class="hud-grid-item right-aligned"
                         data-benefit-index="3"
                     >
                         <h2 class="benefit-title">
                             Noticias directo <br />a tu celular (Appvisor)
                         </h2>
+                        <img src="hud-mid-right.svg" alt="" />
                     </div>
                     <div
                         class="hud-grid-item left-aligned bottom-aligned"
                         data-benefit-index="4"
                     >
-                        <h2 class="benefit-title">
+                        <h2 class="benefit-title bottom-aligned">
                             Contacto directo<br />
                             con economistas
                         </h2>
@@ -270,53 +288,69 @@
                         class="hud-grid-item right-aligned bottom-aligned"
                         data-benefit-index="5"
                     >
-                        <div class="square"></div>
-                        <h2 class="benefit-title">
+                        <h2 class="benefit-title bottom-aligned">
                             Cobertura completa<br />
                             y transversal
                         </h2>
+                        <img src="hud-bottom-right.svg" alt="" />
                     </div>
                 </div>
-                <div class="background-container">
-                    <button class="cta">Solicitá tu cotización</button>
-                    <img
-                        id="benefit-computer"
-                        src="compu1.webp"
-                        alt="computadora"
-                        class="computer"
-                    />
-                </div>
-                <div class="benefit-description">
-                    <h3 id="benefit-subtitle">Actualización en tiempo real</h3>
-                    <div id="benefit-description-text">
-                        <p>
-                            Accedé a información clave en cualquier momento a
-                            través de <strong>AppVisor</strong>, <br />la
-                            plataforma líder en inteligencia económica para
-                            ejecutivos.
-                        </p>
+                <div class="computer-container">
+                    <div class="background-container">
+                        <img
+                            id="benefit-computer"
+                            src="compu1.webp"
+                            alt="computadora"
+                            class="computer"
+                        />
+                    </div>
+                    <div class="benefit-description">
+                        <h3 id="benefit-subtitle">
+                            Actualización en tiempo real
+                        </h3>
+                        <div id="benefit-description-text">
+                            <p>
+                                Accedé a información clave en cualquier momento
+                                a través de <strong>AppVisor</strong>, <br />la
+                                plataforma líder en inteligencia económica para
+                                ejecutivos.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <section class="subheader">
-                <p>
-                    Accedé a la información económica más confiable y análisis
-                    clave para anticiparte al mercado.<br />
-                    <strong>
-                        Con insights diarios, asesoramiento directo y networking
-                        exclusivo.
-                    </strong>
-                </p>
+            <section class="marquee-container">
+                <div class="reports-marquee-fade"></div>
+                <div class="display-container">
+                    <div class="reports-marquee">
+                        <span>Economic Daily</span><span>•</span>
+                        <span>Finance Daily</span><span>•</span>
+                        <span>Weekly Report</span><span>•</span>
+                        <span>Quinquenal Sectorial</span><span>•</span>
+                        <span>Monthly Report</span><span>•</span>
+                        <span>Panorama Político</span><span>•</span>
+                        <span>Economía Lationamericana</span><span>•</span>
+                    </div>
+                    <div class="reports-marquee">
+                        <span>Economic Daily</span><span>•</span>
+                        <span>Finance Daily</span><span>•</span>
+                        <span>Weekly Report</span><span>•</span>
+                        <span>Quinquenal Sectorial</span><span>•</span>
+                        <span>Monthly Report</span><span>•</span>
+                        <span>Panorama Político</span><span>•</span>
+                        <span>Economía Lationamericana</span><span>•</span>
+                    </div>
+                    <div class="reports-marquee">
+                        <span>Economic Daily</span><span>•</span>
+                        <span>Finance Daily</span><span>•</span>
+                        <span>Weekly Report</span><span>•</span>
+                        <span>Quinquenal Sectorial</span><span>•</span>
+                        <span>Monthly Report</span><span>•</span>
+                        <span>Panorama Político</span><span>•</span>
+                        <span>Economía Lationamericana</span><span>•</span>
+                    </div>
+                </div>
             </section>
-            <section class="display"></section>
-            <div class="footer">
-                <p>
-                    <strong>Club Ecolatina</strong>
-                    <br />
-                    <span>Club de ejecutivos</span>
-                </p>
-            </div>
         </main>
     </body>
 </html>
