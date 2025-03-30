@@ -123,34 +123,40 @@
                         title: 'Red de alianzas',
                         subtitle: 'Alianzas estratégicas para una visión 360°',
                         description: `<p>Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.</p>`,
+                        computer: 'compu2.webp',
                     },
                     {
                         title: 'Información estratégica diaria',
                         subtitle:
                             'Insights diarios para decisiones estratégicas',
                         description: `<p>Accedé a reportes exclusivos con datos clave y análisis en tiempo real<br/> para respaldar la toma de decisiones</p>`,
+                        computer: 'compu3.webp',
                     },
                     {
                         title: 'Networking High Level (Webinars, encuentros inhouse)',
                         subtitle: 'Networking exclusivo con líderes del sector',
                         description: `<p>Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.</p>`,
+                        computer: 'compu4.webp',
                     },
                     {
                         title: 'Noticias directo a tu celular (Appvisor)',
                         subtitle: 'Actualización en tiempo real',
                         description: `<p>Accedé a información clave en cualquier momento a través de AppVisor,<br/> la plataforma líder en inteligencia económica para ejecutivos.</p>`,
+                        computer: 'compu5.webp',
                     },
                     {
                         title: 'Contacto directo con economistas',
                         subtitle:
                             'Acceso directo a los principales economistas',
                         description: `<p>Asesoramiento inmediato de nuestros expertos vía WhatsApp,<br/> teléfono o email, cuando tu negocio lo requiera.</p>`,
+                        computer: 'compu6.webp',
                     },
                     {
                         title: 'Cobertura completa y transversal',
                         subtitle: 'Visión integral para toda la organización',
                         description: `<p>Información alineada para toda la empresa, garantizando coherencia<br/> 
                         en el análisis económico y estratégico.</p>`,
+                        computer: 'compu7.webp',
                     },
                 ];
                 document.addEventListener('DOMContentLoaded', () => {
@@ -179,6 +185,8 @@
                             ).innerHTML = benefit.description;
 
                             console.log(benefit);
+                            document.getElementById('benefit-computer').src =
+                                benefit.computer;
                         });
                     });
                 });
@@ -271,8 +279,12 @@
                 </div>
                 <div class="background-container">
                     <button class="cta">Solicitá tu cotización</button>
-                    <img src="Compu.png" alt="computadora" class="computer" />
-                    <img src="logo Ecolatina.png" alt="logo" class="logo" />
+                    <img
+                        id="benefit-computer"
+                        src="compu1.webp"
+                        alt="computadora"
+                        class="computer"
+                    />
                 </div>
                 <div class="benefit-description">
                     <h3 id="benefit-subtitle">Actualización en tiempo real</h3>
