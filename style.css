@@ -281,6 +281,7 @@
     .hud-grid {
         width: 75%; /* Slightly smaller relative width for very large screens */
         max-width: 1800px; /* Prevent excessive stretching */
+        transform: translateY(-20%);
     }
 }
 
