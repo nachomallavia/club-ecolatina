@@ -274,3 +274,71 @@
         transform: translateX(calc(-100% - 1rem));
     }
 }
+
+/* Base styles for largest screens (1920px and above) in landscape */
+@media (orientation: landscape) and (min-width: 1920px) {
+    /* Add any specific adjustments for very large screens */
+    .hud-grid {
+        width: 75%; /* Slightly smaller relative width for very large screens */
+        max-width: 1800px; /* Prevent excessive stretching */
+    }
+}
+
+/* Your current styles should be wrapped in this media query */
+@media (orientation: landscape) and (min-width: 1600px) and (max-width: 1919px) {
+    /* Your current styles go here - this is your "default" design range */
+    .hud-grid {
+        width: 80%;
+        aspect-ratio: 3/1;
+    }
+    /* ... other current styles ... */
+}
+
+/* Breakpoint for 1440px-1599px */
+@media (orientation: landscape) and (min-width: 1440px) and (max-width: 1599px) {
+    .hud-grid {
+        width: 85%; /* Slightly wider relative to screen */
+        aspect-ratio: 2.8/1; /* Slightly less wide */
+        transform: translateY(-20%);
+    }
+
+    .title h1 {
+        font-size: 2.4rem; /* Slightly smaller than your current 2.65rem */
+    }
+
+    .hud-grid-item h2 {
+        font-size: 1.1rem; /* Slightly smaller than your current 1.2rem */
+    }
+    .computer-container {
+        width: 50%;
+    }
+}
+
+/* Breakpoint for 1366px-1439px */
+@media (orientation: landscape) and (min-width: 1366px) and (max-width: 1439px) {
+    .hud-grid {
+        width: 82%;
+        aspect-ratio: 2.5/1;
+        transform: translateY(-12%);
+    }
+
+    .title h1 {
+        font-size: 2rem;
+    }
+    .subheader {
+        bottom: 15%;
+        width: 80%;
+    }
+    .hud-grid-item h2 {
+        font-size: 1rem;
+    }
+
+    .computer-container {
+        width: 50%;
+        transform: translate(-50%, -45%); /* Slightly smaller computer */
+    }
+
+    .benefit-description {
+        max-width: 700px; /* Smaller max-width for text */
+    }
+}
