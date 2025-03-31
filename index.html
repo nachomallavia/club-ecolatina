@@ -8,117 +8,8 @@
     </head>
     <body>
         <main class="main">
-            <script type="module" defer>
-                import {
-                    animate,
-                    spring,
-                    stagger,
-                } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
-
-                // Wait for the DOM to be fully loaded
-                document.addEventListener('DOMContentLoaded', () => {
-                    const computer = document.querySelector('.computer');
-                    const logo = document.querySelector('.logo');
-                    const hudGrid = document.querySelector('.hud-grid');
-                    const title = document.querySelector('.title');
-                    const titleText = document.querySelector('.title h1');
-                    const ondas = document.querySelector('.title img');
-                    const subheader = document.querySelector('.subheader');
-                    const benefitDescription = document.querySelector(
-                        '.benefit-description'
-                    );
-
-                    // Set initial states
-                    hudGrid.style.opacity = '0';
-                    benefitDescription.style.opacity = '0';
-                    // Function to handle scroll animation
-                    function handleScroll() {
-                        const scrollPosition = window.scrollY;
-                        const windowHeight = window.innerHeight;
-                        const scrollPercentage = Math.min(
-                            scrollPosition / (windowHeight * 0.1),
-                            1
-                        );
-
-                        // Fade out title and ondas
-                        animate(
-                            titleText,
-                            {
-                                opacity: 1 - scrollPercentage,
-                                y: -100 * scrollPercentage,
-                            },
-                            { duration: 0.3 }
-                        );
-                        animate(
-                            ondas,
-                            {
-                                opacity: Math.max(0.5 - scrollPercentage, 0),
-                                y: -50 * scrollPercentage,
-                                scale: 1 + scrollPercentage * 0.025,
-                            },
-                            { duration: 0.3 }
-                        );
-                        animate(
-                            subheader,
-                            {
-                                opacity: 1 - scrollPercentage,
-                            },
-                            { duration: 0.3 }
-                        );
-
-                        // Fade in hud-grid
-                        animate(
-                            hudGrid,
-                            {
-                                opacity: scrollPercentage,
-                                // y: -100 * scrollPercentage,
-                            },
-                            { duration: 0.3 }
-                        );
-
-                        animate(
-                            benefitDescription,
-                            { opacity: scrollPercentage },
-                            { duration: 0.3 }
-                        );
-                        animate(
-                            logo,
-                            {
-                                opacity: 1 - scrollPercentage,
-                            },
-                            { duration: 0.3 }
-                        );
-                        animate(
-                            computer,
-                            {
-                                scale: 1 + scrollPercentage * 0.025,
-                            },
-                            { duration: 0.3 }
-                        );
-                    }
-
-                    // Add scroll event listener
-                    window.addEventListener('scroll', handleScroll);
-
-                    // Animate grid items with stagger effect on page load
-                    const gridItems =
-                        document.querySelectorAll('.hud-grid-item');
-                    animate(
-                        gridItems,
-                        {
-                            opacity: [0, 1],
-                            y: [20, 0],
-                        },
-                        {
-                            delay: stagger(0.05),
-                            easing: spring({ stiffness: 100, damping: 15 }),
-                            duration: 0.8,
-                        }
-                    );
-                });
-            </script>
             <script>
-                benefits = [
+                const benefits = [
                     {
                         title: 'Red de alianzas',
                         subtitle: 'Alianzas estratégicas para una visión 360°',
@@ -198,6 +89,122 @@
                     });
                 });
             </script>
+            <script type="module" defer>
+                import {
+                    animate,
+                    spring,
+                    stagger,
+                } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
+
+                // Wait for the DOM to be fully loaded
+                document.addEventListener('DOMContentLoaded', () => {
+                    const computer = document.querySelector('.computer');
+                    const logo = document.querySelector('.logo');
+                    const hudGrid = document.querySelector('.hud-grid');
+                    const title = document.querySelector('.title');
+                    const titleText = document.querySelector('.title h1');
+                    const ondas = document.querySelector('.title img');
+                    const subheader = document.querySelector('.subheader');
+                    const benefitDescription = document.querySelector(
+                        '.benefit-description'
+                    );
+
+                    // Set initial states
+                    hudGrid.style.opacity = '0';
+                    benefitDescription.style.opacity = '0';
+                    // Function to handle scroll animation
+                    function handleScroll() {
+                        const scrollPosition = window.scrollY;
+                        const windowHeight = window.innerHeight;
+                        const scrollPercentage = Math.min(
+                            scrollPosition / (windowHeight * 0.5),
+                            1
+                        );
+
+                        console.log('Scroll position:', scrollPosition);
+                        console.log('Window height:', windowHeight);
+                        console.log('Scroll percentage:', scrollPercentage);
+
+                        // Fade out title and ondas
+                        animate(
+                            titleText,
+                            {
+                                opacity: 1 - scrollPercentage,
+                                y: -100 * scrollPercentage,
+                            },
+                            { duration: 0.3 }
+                        );
+                        animate(
+                            ondas,
+                            {
+                                opacity: Math.max(0.5 - scrollPercentage, 0),
+                                y: -100 * scrollPercentage,
+                                scale: Math.min(
+                                    1 + scrollPercentage * 0.75,
+                                    1.2
+                                ),
+                            },
+                            { duration: 0.2 }
+                        );
+                        animate(
+                            subheader,
+                            {
+                                opacity: 1 - scrollPercentage,
+                            },
+                            { duration: 0.3 }
+                        );
+
+                        // Fade in hud-grid
+                        animate(
+                            hudGrid,
+                            {
+                                opacity: scrollPercentage,
+                                // y: -100 * scrollPercentage,
+                            },
+                            { duration: 0.3 }
+                        );
+
+                        animate(
+                            benefitDescription,
+                            { opacity: scrollPercentage },
+                            { duration: 0.3 }
+                        );
+                        animate(
+                            logo,
+                            {
+                                opacity: 1 - scrollPercentage,
+                            },
+                            { duration: 0.3 }
+                        );
+                        animate(
+                            computer,
+                            {
+                                scale: 1 + scrollPercentage * 0.025,
+                            },
+                            { duration: 0.3 }
+                        );
+                    }
+
+                    // Add scroll event listener
+                    window.addEventListener('scroll', handleScroll);
+
+                    // Animate grid items with stagger effect on page load
+                    // const gridItems =
+                    //     document.querySelectorAll('.hud-grid-item');
+                    // animate(
+                    //     gridItems,
+                    //     {
+                    //         opacity: [0, 1],
+                    //         y: [20, 0],
+                    //     },
+                    //     {
+                    //         delay: stagger(0.05),
+                    //         easing: spring({ stiffness: 100, damping: 15 }),
+                    //         duration: 0.8,
+                    //     }
+                    // );
+                });
+            </script>
             <div class="scroll-container">
                 <section class="title">
                     <h1>Inteligencia para <br />decisiones estratégicas</h1>
@@ -212,8 +219,8 @@
                             </strong>
                         </p>
                     </div>
+                    <button class="cta">Solicitá tu cotización</button>
                 </section>
-                <button class="cta">Solicitá tu cotización</button>
 
                 <div class="hud-grid">
                     <div
