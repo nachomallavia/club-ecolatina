@@ -4,74 +4,49 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Club Ecolatina</title>
-        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <div class="main-container">
+        <main>
             <script>
                 const benefits = [
                     {
                         title: '<span>Red de alianzas <br />estratégicas</span>',
                         subtitle: 'Alianzas estratégicas para una visión 360°',
                         description: `<p>Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.</p>`,
-                        computer:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu2_zcn6vf.webp',
-                        line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743476265/hud-top-left_xvdmht.svg',
-                        lineSelected:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-top-left-selected_qia7bz.svg',
+                        computer: 'compu2.webp',
                     },
                     {
                         title: '<span>Información <br/>estratégica diaria</span>',
                         subtitle:
                             'Insights diarios para decisiones estratégicas',
                         description: `<p>Accedé a reportes exclusivos con datos clave y análisis en tiempo real<br/> para respaldar la toma de decisiones</p>`,
-                        computer:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/compu3_nongnc.webp',
-                        line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475680/hud-top-right_zgnehr.svg',
-                        lineSelected:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-top-right-selected_k5ggy6.svg',
+                        computer: 'compu3.webp',
                     },
                     {
                         title: '<span>Networking High Level <br />(Webinars, encuentros inhouse)</span>',
                         subtitle: 'Networking exclusivo con líderes del sector',
                         description: `<p>Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.</p>`,
-                        computer:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu4_ievtk6.webp',
-                        line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743477081/hud-mid-left_toqfxw.svg',
-                        lineSelected:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-mid-left-selected_ng7tsc.svg',
+                        computer: 'compu4.webp',
                     },
                     {
                         title: '<span>Noticias directo a tu celular <br />(Appvisor)</span>',
                         subtitle: 'Actualización en tiempo real',
                         description: `<p>Accedé a información clave en cualquier momento a través de AppVisor,<br/> la plataforma líder en inteligencia económica para ejecutivos.</p>`,
-                        computer:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu5_rtywyw.webp',
-                        line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-mid-right_nggbe0.svg',
-                        lineSelected:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-mid-right-selected_uqwjrf.svg',
+                        computer: 'compu5.webp',
                     },
                     {
                         title: '<span>Contacto directo<br />con economistas</span>',
                         subtitle:
                             'Acceso directo a los principales economistas',
                         description: `<p>Asesoramiento inmediato de nuestros expertos vía WhatsApp,<br/> teléfono o email, cuando tu negocio lo requiera.</p>`,
-                        computer:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu6_eg6xzt.webp',
-                        line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743477210/hud-bottom-left_y0i763.svg',
-                        lineSelected:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/hud-bottom-left-selected_ze0pxy.svg',
+                        computer: 'compu6.webp',
                     },
                     {
                         title: '<span>Cobertura completa<br />y transversal</span>',
                         subtitle: 'Visión integral para toda la organización',
                         description: `<p>Información alineada para toda la empresa, garantizando coherencia<br/> 
                         en el análisis económico y estratégico.</p>`,
-                        computer:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu7_fpu6ii.webp',
-                        line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-bottom-right_pu41hq.svg',
-                        lineSelected:
-                            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/hud-bottom-right-selected_vqk0lk.svg',
+                        computer: 'compu7.webp',
                     },
                 ];
                 document.addEventListener('DOMContentLoaded', () => {
@@ -88,24 +63,18 @@
                             hudGridItems.forEach((item) => {
                                 item.classList.remove('selected');
                                 let img = item.querySelector('img');
-                                if (
-                                    img &&
-                                    img.src ==
-                                        benefits[item.dataset.benefitIndex]
-                                            .lineSelected
-                                ) {
-                                    img.src =
-                                        benefits[
-                                            item.dataset.benefitIndex
-                                        ].line;
+                                if (img && img.src.includes('-selected.svg')) {
+                                    img.src = img.src.replace(
+                                        '-selected.svg',
+                                        '.svg'
+                                    );
                                 }
                             });
                             item.classList.add('selected');
                             let img = item.querySelector('img');
-
+                            img.src = img.src.replace('.svg', '-selected.svg');
                             const benefitIndex = item.dataset.benefitIndex;
                             const benefit = benefits[benefitIndex];
-                            img.src = benefit.lineSelected;
                             document.getElementById(
                                 'benefit-subtitle'
                             ).textContent = benefit.subtitle;
@@ -143,13 +112,11 @@
                     const benefitDescription = document.querySelector(
                         '#benefit-description-text'
                     );
-                    const startingComputerUrl =
-                        'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu1_kihhid.webp';
+
                     // Set initial states
                     hudGrid.style.opacity = '0';
                     benefitDescription.style.opacity = '0';
-                    benefitComputer.style.opacity = '1';
-                    benefitComputer.src = startingComputerUrl;
+                    benefitComputer.style.opacity = '0';
                     // startingComputer.style.opacity = '1';
 
                     // Function to handle scroll animation
@@ -161,9 +128,9 @@
                             1
                         );
 
-                        // console.log('Scroll position:', scrollPosition);
-                        // console.log('Window height:', windowHeight);
-                        // console.log('Scroll percentage:', scrollPercentage);
+                        console.log('Scroll position:', scrollPosition);
+                        console.log('Window height:', windowHeight);
+                        console.log('Scroll percentage:', scrollPercentage);
 
                         // Fade out title and ondas
                         animate(
@@ -213,16 +180,13 @@
                             { duration: 0.2 }
                         );
 
-                        animate(
-                            benefitComputer,
-                            {
-                                opacity: scrollPercentage * 0.8 + 1, // Start at 0.2 opacity and increase to 1.0
-                                filter: `brightness(${
-                                    100 + (scrollPercentage - 0.1) * 35
-                                }%)`, // Brighter at start, normal at end
-                            },
-                            { duration: 0.3 }
-                        );
+                        // animate(
+                        //     benefitComputer,
+                        //     {
+                        //         opacity: scrollPercentage,
+                        //     },
+                        //     { duration: 0.3 }
+                        // );
                         // animate(
                         //     startingComputer,
                         //     {
@@ -230,9 +194,6 @@
                         //     },
                         //     { duration: 0.3 }
                         // );
-                        if (scrollPercentage < 0.25) {
-                            benefitComputer.src = startingComputerUrl;
-                        }
                     }
 
                     // Add scroll event listener
@@ -248,7 +209,7 @@
 
                         <img
                             id="ondas"
-                            src="https://res.cloudinary.com/duykgwmak/image/upload/v1743478442/ondas_mwzyu5.svg"
+                            src="ondas.svg"
                             width="100%"
                             alt="ondas"
                         />
@@ -273,10 +234,7 @@
                                 <h2 class="benefit-title">
                                     Red de alianzas <br />estratégicas
                                 </h2>
-                                <img
-                                    src="https://res.cloudinary.com/duykgwmak/image/upload/v1743476265/hud-top-left_xvdmht.svg"
-                                    alt=""
-                                />
+                                <img src="hud-top-left.svg" alt="" />
                             </div>
                             <div
                                 class="hud-grid-item empty top-aligned left-aligned"
@@ -293,7 +251,6 @@
                                     Información <br />estratégica diaria
                                 </h2>
                                 <img
-                                    class="hud-line"
                                     src="https://res.cloudinary.com/duykgwmak/image/upload/v1743475680/hud-top-right_zgnehr.svg"
                                     alt=""
                                 />
@@ -306,10 +263,7 @@
                                     Networking High Level <br />
                                     (Webinars, encuentros inhouse)
                                 </h2>
-                                <img
-                                    src="https://res.cloudinary.com/duykgwmak/image/upload/v1743477081/hud-mid-left_toqfxw.svg"
-                                    alt=""
-                                />
+                                <img src="hud-mid-left.svg" alt="" />
                             </div>
                             <div
                                 class="hud-grid-item empty center-aligned left-aligned"
@@ -326,10 +280,7 @@
                                     Noticias directo <br />a tu celular
                                     (Appvisor)
                                 </h2>
-                                <img
-                                    src="https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-mid-right_nggbe0.svg"
-                                    alt=""
-                                />
+                                <img src="hud-mid-right.svg" alt="" />
                             </div>
                             <div
                                 class="hud-grid-item left-aligned bottom-aligned"
@@ -339,10 +290,7 @@
                                     Contacto directo<br />
                                     con economistas
                                 </h2>
-                                <img
-                                    src="https://res.cloudinary.com/duykgwmak/image/upload/v1743477210/hud-bottom-left_y0i763.svg"
-                                    alt=""
-                                />
+                                <img src="hud-bottom-left.svg" alt="" />
                             </div>
                             <div
                                 class="hud-grid-item empty bottom-aligned left-aligned"
@@ -359,24 +307,21 @@
                                     Cobertura completa<br />
                                     y transversal
                                 </h2>
-                                <img
-                                    src="https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-bottom-right_pu41hq.svg"
-                                    alt=""
-                                />
+                                <img src="hud-bottom-right.svg" alt="" />
                             </div>
                         </div>
                         <div class="background-container">
-                            <!-- <img
+                            <img
                                 id="starting-computer"
-                                src="https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu1_kihhid.webp"
+                                src="compu1.webp"
                                 alt="computadora"
                                 class="computer"
-                            /> -->
+                            />
                         </div>
                         <div class="computer-container">
                             <img
                                 id="benefit-computer"
-                                src="https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu1_kihhid.webp"
+                                src="compu1.webp"
                                 alt="computadora"
                                 class="computer"
                             />
@@ -441,6 +386,400 @@
             <div class="mobile-layout">
                 <!-- Will be implemented later -->
             </div>
-        </div>
+        </main>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+            :root {
+                --ecolatina-green: #00625d;
+                --ecolatina-green-2: #34a19b;
+                --ecolatina-aqua: #7bbfb7;
+                --ecolatina-aqua-2: #b6f4ed;
+                --ecolatina-light-gray: #f7f7f7;
+                --ecolatina-dark-gray: #606060;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Open Sans', sans-serif;
+                color: var(--ecolatina-green);
+            }
+
+            .scroll-container {
+                width: 100%;
+                height: 200vh;
+                overflow-y: auto;
+                scroll-snap-type: y mandatory;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .title {
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                scroll-snap-align: start;
+            }
+            .title h1 {
+                color: var(--ecolatina-green);
+                font-size: 2.65rem;
+                font-weight: 700;
+                text-align: center;
+                line-height: 1.125;
+                margin-top: 3rem;
+            }
+            #ondas {
+                position: absolute;
+                top: 0;
+                width: 100%;
+                opacity: 0.5;
+                /* height: 640px; */
+            }
+
+            .subheader {
+                position: absolute;
+                bottom: 12%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
+
+            .computer-container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .background-container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, calc(-50% - 48px));
+            }
+
+            #benefit-computer {
+                width: 100%;
+                filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+                z-index: 10;
+            }
+            #starting-computer {
+                width: 100%;
+                filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+                z-index: 1;
+            }
+
+            .cta {
+                position: fixed;
+                top: 55%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 200px;
+                background-color: var(--ecolatina-green);
+                font-size: 1rem;
+                color: var(--ecolatina-aqua-2);
+                border: 1px solid var(--ecolatina-aqua-2);
+                border-radius: 5px;
+                padding: 10px;
+                z-index: 200;
+                cursor: pointer;
+            }
+            .cta:hover {
+                background-color: var(--ecolatina-green-2);
+                color: white;
+            }
+            .cta:active {
+                background-color: var(--ecolatina-aqua);
+                color: white;
+            }
+            .hud-grid-container {
+                width: 100%;
+                height: 100vh;
+                scroll-snap-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .hud-grid {
+                aspect-ratio: 3/1;
+                scroll-snap-align: start;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr;
+                row-gap: 10vh;
+                column-gap: 0;
+                width: 80%;
+                max-width: 1500px;
+                z-index: 25;
+                transform: translateY(-15%);
+            }
+            .hud-grid-item {
+                font-size: 1rem;
+                font-weight: 400;
+                /* margin-bottom: 4rem; */
+                /* min-height: 8rem; */
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+            .hud-grid-item img {
+                max-width: 120%;
+                align-self: start;
+            }
+            .hud-grid-item.right-aligned img {
+                align-self: end;
+            }
+            .hud-grid-item:hover {
+                cursor: pointer;
+            }
+            .hud-grid-item:hover h2 {
+                color: var(--ecolatina-green-2);
+            }
+            .hud-grid-item.selected h2 {
+                font-weight: 700;
+                color: var(--ecolatina-green);
+                position: relative;
+            }
+            .hud-grid-item.selected.right-aligned h2:after {
+                content: '';
+                border-bottom: 8px solid var(--ecolatina-aqua);
+                width: 50%;
+                position: absolute;
+                bottom: -8px;
+                right: 0;
+            }
+            .hud-grid-item.selected.left-aligned h2:after {
+                content: '';
+                border-bottom: 8px solid var(--ecolatina-aqua);
+                width: 50%;
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+            }
+            .hud-grid-item.top-aligned {
+                align-items: flex-start;
+            }
+            .hud-grid-item.top-aligned h2 {
+                margin-bottom: 0rem;
+            }
+            .hud-grid-item.bottom-aligned {
+                align-items: flex-end;
+            }
+            .hud-grid-item.bottom-aligned h2 {
+                margin-bottom: -4rem;
+            }
+            .hud-grid-item.left-aligned {
+                text-align: left;
+            }
+            .hud-grid-item.right-aligned {
+                text-align: right;
+                align-items: flex-end;
+            }
+            .hud-grid-item.center-aligned {
+                align-items: baseline;
+            }
+            .hud-grid-item h2 {
+                font-size: 1.2rem;
+                font-weight: 400;
+                width: 100%;
+                line-height: 1.2;
+                text-shadow: 0 0 12px rgba(255, 255, 255, 1);
+            }
+            .hud-grid-item.empty.left-aligned {
+                justify-content: flex-start;
+            }
+            .hud-grid-item.empty.right-aligned {
+                justify-content: flex-end;
+            }
+
+            .square {
+                width: 1.25rem;
+                height: 1.25rem;
+                border: 2px solid var(--ecolatina-aqua);
+                border-radius: 0.25rem;
+            }
+            .benefit-description {
+                text-align: center;
+                margin-top: 1rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .benefit-description h3 {
+                text-transform: uppercase;
+            }
+            .footer {
+                height: 20vh;
+            }
+            .marquee-container {
+                width: 100%;
+                position: relative;
+            }
+            .display-container {
+                width: 100%;
+                display: flex;
+                overflow: hidden;
+                position: fixed;
+                bottom: 4%;
+                left: 0;
+            }
+
+            .reports-marquee {
+                margin-right: 1rem;
+                display: flex;
+                gap: 1rem;
+                width: 100%;
+                animation: scroll 10s linear infinite;
+                white-space: nowrap;
+            }
+            .reports-marquee-fade {
+                position: absolute;
+                bottom: 4%;
+                left: 0;
+                width: 100%;
+                height: 2rem;
+                background: linear-gradient(
+                    to right,
+                    var(--ecolatina-light-gray) 5%,
+                    transparent 10%,
+                    transparent 90%,
+                    var(--ecolatina-light-gray) 95%
+                );
+                z-index: 1;
+            }
+            .reports-marquee span {
+                font-weight: 400;
+                color: var(--ecolatina-dark-gray);
+            }
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(calc(-100% - 1rem));
+                }
+            }
+
+            /* Base styles for largest screens (1920px and above) in landscape */
+            @media (orientation: landscape) and (min-width: 1920px) {
+                /* Add any specific adjustments for very large screens */
+                .hud-grid {
+                    width: 75%; /* Slightly smaller relative width for very large screens */
+                    max-width: 1800px; /* Prevent excessive stretching */
+                    transform: translateY(-20%);
+                }
+            }
+
+            /* Your current styles should be wrapped in this media query */
+            @media (orientation: landscape) and (min-width: 1600px) and (max-width: 1919px) {
+                /* Your current styles go here - this is your "default" design range */
+                .hud-grid {
+                    width: 80%;
+                    aspect-ratio: 3/1;
+                }
+                /* ... other current styles ... */
+            }
+
+            /* Breakpoint for 1440px-1599px */
+            @media (orientation: landscape) and (min-width: 1440px) and (max-width: 1599px) {
+                .hud-grid {
+                    width: 85%; /* Slightly wider relative to screen */
+                    aspect-ratio: 2.8/1; /* Slightly less wide */
+                    transform: translateY(-20%);
+                }
+
+                .title h1 {
+                    font-size: 2.4rem; /* Slightly smaller than your current 2.65rem */
+                }
+
+                .hud-grid-item h2 {
+                    font-size: 1.1rem; /* Slightly smaller than your current 1.2rem */
+                }
+                #starting-computer {
+                    top: 23%;
+                }
+                .computer-container {
+                    width: 50%;
+                }
+                .background-container {
+                    width: 50%;
+                    transform: translate(-50%, calc(-50% - 48px));
+                }
+            }
+
+            /* Breakpoint for 1366px-1439px */
+            @media (orientation: landscape) and (min-width: 1366px) and (max-width: 1439px) {
+                .hud-grid {
+                    width: 82%;
+                    aspect-ratio: 2.5/1;
+                    transform: translateY(-12%);
+                }
+
+                .title h1 {
+                    font-size: 2rem;
+                }
+                .subheader {
+                    bottom: 15%;
+                    width: 80%;
+                }
+                .hud-grid-item h2 {
+                    font-size: 1rem;
+                }
+
+                .computer-container {
+                    width: 50%;
+                    transform: translate(
+                        -50%,
+                        -45%
+                    ); /* Slightly smaller computer */
+                }
+                .background-container {
+                    width: 50%;
+                    transform: translate(-50%, calc(-50% - 25px));
+                }
+
+                .benefit-description {
+                    max-width: 700px; /* Smaller max-width for text */
+                }
+            }
+
+            /* Hide all layouts by default */
+            .landscape-layout,
+            .portrait-layout,
+            .mobile-layout {
+                display: none;
+            }
+
+            /* Show landscape layout for landscape orientation on larger screens */
+            @media (orientation: landscape) and (min-width: 1024px) {
+                .landscape-layout {
+                    display: block;
+                }
+            }
+
+            /* Show portrait layout for portrait orientation on tablets and larger */
+            @media (orientation: portrait) and (min-width: 768px) {
+                .portrait-layout {
+                    display: block;
+                }
+            }
+
+            /* Show mobile layout for smaller screens (both orientations) */
+            @media (max-width: 767px) {
+                .mobile-layout {
+                    display: block;
+                }
+            }
+        </style>
     </body>
 </html>

@@ -50,6 +50,7 @@
     opacity: 0.5;
     /* height: 640px; */
 }
+
 .subheader {
     position: absolute;
     bottom: 12%;
@@ -64,21 +65,24 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-.computer {
-    filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
-    width: 100%;
-    height: 100%;
-}
-
-.logo {
-    position: absolute;
-    top: 35%;
+.background-container {
+    position: fixed;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-    max-width: 500px;
+    transform: translate(-50%, calc(-50% - 48px));
 }
+
+#benefit-computer {
+    width: 100%;
+    filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+    z-index: 10;
+}
+#starting-computer {
+    width: 100%;
+    filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+    z-index: 1;
+}
+
 .cta {
     position: fixed;
     top: 55%;
@@ -109,6 +113,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    overflow-x: hidden;
 }
 .hud-grid {
     aspect-ratio: 3/1;
@@ -227,14 +233,15 @@
 }
 .marquee-container {
     width: 100%;
+    height: 48px;
     position: relative;
 }
 .display-container {
     width: 100%;
     display: flex;
-    overflow: hidden;
-    position: fixed;
-    bottom: 4%;
+    overflow-x: hidden;
+    position: absolute;
+    bottom: 1rem;
     left: 0;
 }
 
@@ -248,10 +255,10 @@
 }
 .reports-marquee-fade {
     position: absolute;
-    bottom: 4%;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 2rem;
+    height: 100%;
     background: linear-gradient(
         to right,
         var(--ecolatina-light-gray) 5%,
@@ -259,7 +266,7 @@
         transparent 90%,
         var(--ecolatina-light-gray) 95%
     );
-    z-index: 1;
+    z-index: 10;
 }
 .reports-marquee span {
     font-weight: 400;
@@ -310,8 +317,15 @@
     .hud-grid-item h2 {
         font-size: 1.1rem; /* Slightly smaller than your current 1.2rem */
     }
+    #starting-computer {
+        top: 23%;
+    }
     .computer-container {
         width: 50%;
+    }
+    .background-container {
+        width: 50%;
+        transform: translate(-50%, calc(-50% - 48px));
     }
 }
 
@@ -338,8 +352,40 @@
         width: 50%;
         transform: translate(-50%, -45%); /* Slightly smaller computer */
     }
+    .background-container {
+        width: 50%;
+        transform: translate(-50%, calc(-50% - 25px));
+    }
 
     .benefit-description {
         max-width: 700px; /* Smaller max-width for text */
+    }
+}
+
+/* Hide all layouts by default */
+.landscape-layout,
+.portrait-layout,
+.mobile-layout {
+    display: none;
+}
+
+/* Show landscape layout for landscape orientation on larger screens */
+@media (orientation: landscape) and (min-width: 1024px) {
+    .landscape-layout {
+        display: block;
+    }
+}
+
+/* Show portrait layout for portrait orientation on tablets and larger */
+@media (orientation: portrait) and (min-width: 768px) {
+    .portrait-layout {
+        display: block;
+    }
+}
+
+/* Show mobile layout for smaller screens (both orientations) */
+@media (max-width: 767px) {
+    .mobile-layout {
+        display: block;
     }
 }
