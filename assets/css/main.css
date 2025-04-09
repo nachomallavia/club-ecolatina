@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
-:root {
+
+.club-ecolatina-container {
     --ecolatina-green: #00625d;
     --ecolatina-green-2: #34a19b;
     --ecolatina-aqua: #7bbfb7;
@@ -8,7 +9,7 @@
     --ecolatina-dark-gray: #606060;
 }
 
-* {
+.club-ecolatina-container * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -16,7 +17,7 @@
     color: var(--ecolatina-green);
 }
 
-.scroll-container {
+.club-ecolatina-container .scroll-container {
     width: 100%;
     height: 200vh;
     overflow-y: auto;
@@ -28,7 +29,8 @@
     align-items: center;
     background-color: var(--ecolatina-light-gray);
 }
-.title {
+
+.club-ecolatina-container .title {
     width: 100%;
     height: 100vh;
     display: flex;
@@ -37,7 +39,8 @@
     position: relative;
     scroll-snap-align: start;
 }
-.title h1 {
+
+.club-ecolatina-container .title h1 {
     color: var(--ecolatina-green);
     font-size: 2.65rem;
     font-weight: 700;
@@ -45,7 +48,8 @@
     line-height: 1.125;
     margin-top: 3rem;
 }
-#ondas {
+
+.club-ecolatina-container #ondas {
     position: absolute;
     top: 0;
     width: 100%;
@@ -53,38 +57,41 @@
     height: 664px;
 }
 
-.subheader {
+.club-ecolatina-container .subheader {
     position: absolute;
     bottom: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
 }
-.subheader h4 {
+
+.club-ecolatina-container .subheader h4 {
     margin-top: 4rem;
     font-size: 1rem;
     color: var(--ecolatina-dark-gray);
 }
-.computer-container {
+
+.club-ecolatina-container .computer-container {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.background-container {
+
+.club-ecolatina-container .background-container {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, calc(-50% - 48px));
 }
 
-#benefit-computer {
+.club-ecolatina-container #benefit-computer {
     width: 100%;
     filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
     z-index: 10;
 }
 
-.club-ecolatina-cta {
+.club-ecolatina-container .cta {
     position: fixed;
     top: 55%;
     left: 50%;
@@ -99,26 +106,29 @@
     z-index: 200;
     cursor: pointer;
 }
-.club-ecolatina-cta:hover {
+
+.club-ecolatina-container .cta:hover {
     background-color: var(--ecolatina-green-2);
     color: white;
 }
-.club-ecolatina-cta:active {
+
+.club-ecolatina-container .cta:active {
     background-color: var(--ecolatina-aqua);
     color: white;
 }
-.hud-grid-container {
+
+.club-ecolatina-container .hud-grid-container {
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    scroll-snap-align: start;
     overflow-x: hidden;
 }
-.hud-grid {
-    aspect-ratio: 3/1;
 
+.club-ecolatina-container .hud-grid {
+    aspect-ratio: 3/1;
+    scroll-snap-align: start;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
@@ -126,10 +136,13 @@
     column-gap: 0;
     width: 80%;
     max-width: 1500px;
+    overflow: hidden;
     z-index: 25;
     transform: translateY(-15%);
+    scroll-snap-align: center;
 }
-.hud-grid-item {
+
+.club-ecolatina-container .hud-grid-item {
     font-size: 1rem;
     font-weight: 400;
     display: flex;
@@ -138,28 +151,34 @@
     justify-content: center;
     position: relative;
 }
-.hud-grid-item img {
+
+.club-ecolatina-container .hud-grid-item img {
     width: 100%;
     align-self: start;
     transform: scale(1.25);
     transform-origin: left center;
 }
-.hud-grid-item.right-aligned img {
+
+.club-ecolatina-container .hud-grid-item.right-aligned img {
     align-self: end;
     transform-origin: right center;
 }
-.hud-grid-item:hover {
+
+.club-ecolatina-container .hud-grid-item:hover {
     cursor: pointer;
 }
-.hud-grid-item:hover h2 {
+
+.club-ecolatina-container .hud-grid-item:hover h2 {
     color: var(--ecolatina-green-2);
 }
-.hud-grid-item.selected h2 {
+
+.club-ecolatina-container .hud-grid-item.selected h2 {
     font-weight: 700;
     color: var(--ecolatina-green);
     position: relative;
 }
-.hud-grid-item.selected.right-aligned h2:after {
+
+.club-ecolatina-container .hud-grid-item.selected.right-aligned h2:after {
     content: '';
     border-bottom: 8px solid var(--ecolatina-aqua);
     width: 50%;
@@ -167,7 +186,8 @@
     bottom: -8px;
     right: 0;
 }
-.hud-grid-item.selected.left-aligned h2:after {
+
+.club-ecolatina-container .hud-grid-item.selected.left-aligned h2:after {
     content: '';
     border-bottom: 8px solid var(--ecolatina-aqua);
     width: 50%;
@@ -175,234 +195,195 @@
     bottom: -8px;
     left: 0;
 }
-.hud-grid-item.top-aligned {
+
+.club-ecolatina-container .hud-grid-item.top-aligned {
     align-items: flex-start;
 }
-.hud-grid-item.top-aligned img {
+
+.club-ecolatina-container .hud-grid-item.top-aligned img {
     transform-origin: left top;
-    margin-top: 0.5rem;
 }
-.hud-grid-item.top-aligned.right-aligned img {
+
+.club-ecolatina-container .hud-grid-item.top-aligned.right-aligned img {
     transform-origin: right top;
 }
-.hud-grid-item.top-aligned h2 {
+
+.club-ecolatina-container .hud-grid-item.top-aligned h2 {
     margin-bottom: 0rem;
 }
-.hud-grid-item.bottom-aligned {
+
+.club-ecolatina-container .hud-grid-item.bottom-aligned {
     align-items: flex-end;
 }
-.hud-grid-item.bottom-aligned img {
+
+.club-ecolatina-container .hud-grid-item.bottom-aligned img {
     transform-origin: left bottom;
 }
-.hud-grid-item.bottom-aligned.right-aligned img {
+
+.club-ecolatina-container .hud-grid-item.bottom-aligned.right-aligned img {
     transform-origin: right bottom;
 }
-.hud-grid-item.bottom-aligned h2 {
+
+.club-ecolatina-container .hud-grid-item.bottom-aligned h2 {
     margin-bottom: -4rem;
 }
-.hud-grid-item.left-aligned {
+
+.club-ecolatina-container .hud-grid-item.left-aligned {
     text-align: left;
 }
-.hud-grid-item.right-aligned {
+
+.club-ecolatina-container .hud-grid-item.right-aligned {
     text-align: right;
     align-items: flex-end;
 }
-.hud-grid-item.center-aligned {
+
+.club-ecolatina-container .hud-grid-item.center-aligned {
     align-items: baseline;
 }
-.hud-grid-item h2 {
+
+.club-ecolatina-container .hud-grid-item h2 {
     font-size: 1.2rem;
     font-weight: 400;
     width: 100%;
     line-height: 1.2;
     text-shadow: 0 0 12px rgba(255, 255, 255, 1);
 }
-.hud-grid-item.empty.left-aligned {
+
+.club-ecolatina-container .hud-grid-item.empty.left-aligned {
     justify-content: flex-start;
 }
-.hud-grid-item.empty.right-aligned {
+
+.club-ecolatina-container .hud-grid-item.empty.right-aligned {
     justify-content: flex-end;
 }
 
-.square {
-    width: 1.25rem;
-    height: 1.25rem;
-    border: 2px solid var(--ecolatina-aqua);
-    border-radius: 0.25rem;
-}
-.benefit-description {
+.club-ecolatina-container .benefit-description {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-}
-.benefit-description span {
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    font-weight: 700;
-}
-.footer {
-    height: 20vh;
-}
-.marquee-container {
-    width: 100%;
-    height: 48px;
-    position: relative;
-    background-color: var(--ecolatina-light-gray);
-}
-.display-container {
-    width: 100%;
-    display: flex;
-    overflow-x: hidden;
-    position: absolute;
-    bottom: 1rem;
-    left: 0;
 }
 
-.reports-marquee {
-    margin-right: 1rem;
-    display: flex;
-    gap: 1rem;
+.club-ecolatina-container .benefit-description h3 {
+    margin-bottom: 1rem;
+}
+
+.club-ecolatina-container .marquee-container {
     width: 100%;
-    animation: scroll 10s linear infinite;
+    height: 100px;
+    position: relative;
+}
+
+.club-ecolatina-container .display-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.club-ecolatina-container .reports-marquee {
+    display: flex;
+    gap: 2rem;
+    animation: scroll 20s linear infinite;
     white-space: nowrap;
 }
-.reports-marquee-fade {
+
+.club-ecolatina-container .reports-marquee-fade {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: linear-gradient(
-        to right,
-        var(--ecolatina-light-gray) 5%,
-        transparent 10%,
-        transparent 90%,
-        var(--ecolatina-light-gray) 95%
+        90deg,
+        var(--ecolatina-light-gray) 0%,
+        transparent 5%,
+        transparent 95%,
+        var(--ecolatina-light-gray) 100%
     );
     z-index: 10;
 }
-.reports-marquee span {
-    font-weight: 400;
+
+.club-ecolatina-container .reports-marquee span {
     color: var(--ecolatina-dark-gray);
 }
+
 @keyframes scroll {
     0% {
         transform: translateX(0);
     }
-
     100% {
-        transform: translateX(calc(-100% - 1rem));
+        transform: translateX(-100%);
     }
 }
 
-/* Base styles for largest screens (1920px and above) in landscape */
+/* Responsive Styles */
 @media (orientation: landscape) and (min-width: 1920px) {
-    /* Add any specific adjustments for very large screens */
-    .hud-grid {
-        width: 75%; /* Slightly smaller relative width for very large screens */
-        max-width: 1800px; /* Prevent excessive stretching */
-        transform: translateY(-20%);
+    .club-ecolatina-container .hud-grid {
+        width: 70%;
     }
 }
 
-/* Your current styles should be wrapped in this media query */
 @media (orientation: landscape) and (min-width: 1600px) and (max-width: 1919px) {
-    /* Your current styles go here - this is your "default" design range */
-    .hud-grid {
-        width: 80%;
-        aspect-ratio: 3/1;
+    .club-ecolatina-container .hud-grid {
+        width: 75%;
     }
-    /* ... other current styles ... */
 }
 
-/* Breakpoint for 1440px-1599px */
 @media (orientation: landscape) and (min-width: 1440px) and (max-width: 1599px) {
-    .hud-grid {
-        width: 85%; /* Slightly wider relative to screen */
-        aspect-ratio: 2.8/1; /* Slightly less wide */
-        transform: translateY(-20%);
-    }
-
-    .title h1 {
-        font-size: 2.4rem; /* Slightly smaller than your current 2.65rem */
-    }
-
-    .hud-grid-item h2 {
-        font-size: 1.1rem; /* Slightly smaller than your current 1.2rem */
-    }
-    #starting-computer {
-        top: 23%;
-    }
-    .computer-container {
-        width: 50%;
-    }
-    .background-container {
-        width: 50%;
-        transform: translate(-50%, calc(-50% - 48px));
-    }
-}
-
-/* Breakpoint for 1366px-1439px */
-@media (orientation: landscape) and (min-width: 1366px) and (max-width: 1439px) {
-    .hud-grid {
-        width: 82%;
-        aspect-ratio: 2.5/1;
-        transform: translateY(-12%);
-    }
-
-    .title h1 {
-        font-size: 2rem;
-    }
-    .subheader {
-        bottom: 15%;
+    .club-ecolatina-container .hud-grid {
         width: 80%;
     }
 
-    .hud-grid-item h2 {
+    .club-ecolatina-container .title h1 {
+        font-size: 2.5rem;
+    }
+
+    .club-ecolatina-container .hud-grid-item h2 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (orientation: landscape) and (min-width: 1366px) and (max-width: 1439px) {
+    .club-ecolatina-container .hud-grid {
+        width: 85%;
+    }
+
+    .club-ecolatina-container .title h1 {
+        font-size: 2.25rem;
+    }
+
+    .club-ecolatina-container .subheader {
+        font-size: 0.9rem;
+    }
+
+    .club-ecolatina-container .hud-grid-item h2 {
         font-size: 1rem;
     }
-
-    .computer-container {
-        width: 50%;
-        transform: translate(-50%, -45%); /* Slightly smaller computer */
-    }
-    .background-container {
-        width: 50%;
-        transform: translate(-50%, calc(-50% - 25px));
-    }
-
-    .benefit-description {
-        max-width: 700px; /* Smaller max-width for text */
-    }
 }
 
-/* Hide all layouts by default */
-.landscape-layout,
-.portrait-layout,
-.mobile-layout {
+.club-ecolatina-container .landscape-layout,
+.club-ecolatina-container .portrait-layout,
+.club-ecolatina-container .mobile-layout {
     display: none;
 }
 
-/* Show landscape layout for landscape orientation on larger screens */
 @media (orientation: landscape) and (min-width: 1024px) {
-    .landscape-layout {
+    .club-ecolatina-container .landscape-layout {
         display: block;
     }
 }
 
-/* Show portrait layout for portrait orientation on tablets and larger */
 @media (orientation: portrait) and (min-width: 768px) {
-    .portrait-layout {
+    .club-ecolatina-container .portrait-layout {
         display: block;
     }
 }
 
-/* Show mobile layout for smaller screens (both orientations) */
 @media (max-width: 767px) {
-    .mobile-layout {
+    .club-ecolatina-container .mobile-layout {
         display: block;
     }
 }
