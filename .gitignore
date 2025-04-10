@@ -45,6 +45,6 @@ vendor/
 composer.lock
 
 # Build files
-dist/
+
 build/
 *.zip

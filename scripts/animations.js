@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 opacity: scroll,
             },
-            { duration: 0.3, offset: ['start center', 'end center'] }
+            { duration: 0.3, offset: [0, 0.5] }
         );
         animate(benefitSubtitle, { opacity: scroll }, { duration: 0.3 });
         animate(benefitDescription, { opacity: scroll }, { duration: 0.3 });

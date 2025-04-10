@@ -1,0 +1,1044 @@
+<!-- Club Ecolatina Widget -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+    :root {
+        --ecolatina-green: #00625d;
+        --ecolatina-green-2: #34a19b;
+        --ecolatina-aqua: #7bbfb7;
+        --ecolatina-aqua-2: #b6f4ed;
+        --ecolatina-light-gray: #f7f7f7;
+        --ecolatina-dark-gray: #606060;
+        --header-height: 100px;
+        --footer-height: 100px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Open Sans', sans-serif;
+        color: var(--ecolatina-green);
+        scroll-behavior: smooth;
+    }
+    .main-container {
+        background-color: var(--ecolatina-light-gray);
+    }
+    .scroll-container {
+        width: 100%;
+        /* height: 200vh; */
+        overflow-y: auto;
+        overflow-x: hidden;
+        scroll-snap-type: y mandatory;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--ecolatina-light-gray);
+    }
+    .title {
+        width: 100%;
+        height: calc(100vh - var(--header-height));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        scroll-snap-align: start;
+    }
+    .title h1 {
+        color: var(--ecolatina-green);
+        font-size: 2.65rem;
+        font-weight: 700;
+        text-align: center;
+        line-height: 1.125;
+        margin-top: 2rem;
+    }
+    #ondas {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        opacity: 0.5;
+        height: 664px;
+    }
+
+    .subheader {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    .subheader h4 {
+        margin-top: 2rem;
+        font-size: 1rem;
+        color: var(--ecolatina-dark-gray);
+    }
+    .computer-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .background-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, calc(-50% - 48px));
+    }
+
+    #benefit-computer {
+        width: 100%;
+        filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+        z-index: 10;
+    }
+
+    #club-ecolatina-cta {
+        position: fixed;
+        top: 65%;
+        left: 50%;
+        transform: translate(-50%, calc(-50% - var(--header-height)));
+        width: 50vw;
+        max-width: 200px;
+        background-color: var(--ecolatina-green);
+        font-size: 1rem;
+        color: var(--ecolatina-aqua-2);
+        border: 1px solid var(--ecolatina-aqua-2);
+        border-radius: 5px;
+        padding: 10px;
+        z-index: 200;
+        cursor: pointer;
+    }
+    #club-ecolatina-cta:hover {
+        background-color: var(--ecolatina-green-2);
+        color: white;
+    }
+    #club-ecolatina-cta:active {
+        background-color: var(--ecolatina-aqua);
+        color: white;
+    }
+    .hud-grid-container {
+        width: 100%;
+        /* height: calc(100vh - var(--header-height)); */
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        scroll-snap-align: start;
+        overflow-x: hidden;
+    }
+    .hud-grid {
+        aspect-ratio: 3/1;
+        scroll-snap-align: start;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        /* row-gap: 10vh; */
+        column-gap: 0;
+        width: 80%;
+        max-width: 1500px;
+        z-index: 25;
+        transform: translateY(-15%);
+    }
+    .hud-grid-item {
+        font-size: 1rem;
+        font-weight: 400;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    .hud-grid-item img {
+        width: 100%;
+        align-self: start;
+        transform: scale(1.25);
+        transform-origin: left center;
+    }
+    .hud-grid-item.right-aligned img {
+        align-self: end;
+        transform-origin: right center;
+    }
+    .hud-grid-item:hover {
+        cursor: pointer;
+    }
+    .hud-grid-item:hover h2 {
+        color: var(--ecolatina-green-2);
+    }
+    .hud-grid-item.selected h2 {
+        font-weight: 700;
+        color: var(--ecolatina-green);
+        position: relative;
+    }
+    .hud-grid-item.selected.right-aligned h2:after {
+        content: '';
+        border-bottom: 8px solid var(--ecolatina-aqua);
+        width: 50%;
+        position: absolute;
+        bottom: -8px;
+        right: 0;
+    }
+    .hud-grid-item.selected.left-aligned h2:after {
+        content: '';
+        border-bottom: 8px solid var(--ecolatina-aqua);
+        width: 50%;
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+    }
+    .hud-grid-item.top-aligned {
+        align-items: flex-start;
+    }
+    .hud-grid-item.top-aligned img {
+        transform-origin: left top;
+        margin-top: 0.5rem;
+    }
+    .hud-grid-item.top-aligned.right-aligned img {
+        transform-origin: right top;
+    }
+    .hud-grid-item.top-aligned h2 {
+        margin-bottom: 0rem;
+    }
+    .hud-grid-item.bottom-aligned {
+        align-items: flex-end;
+    }
+    .hud-grid-item.bottom-aligned img {
+        transform-origin: left bottom;
+    }
+    .hud-grid-item.bottom-aligned.right-aligned img {
+        transform-origin: right bottom;
+    }
+    .hud-grid-item.bottom-aligned h2 {
+        margin-bottom: -4rem;
+    }
+    .hud-grid-item.left-aligned {
+        text-align: left;
+    }
+    .hud-grid-item.right-aligned {
+        text-align: right;
+        align-items: flex-end;
+    }
+    .hud-grid-item.center-aligned {
+        align-items: baseline;
+    }
+    .hud-grid-item h2 {
+        font-size: 1.2rem;
+        font-weight: 400;
+        width: 100%;
+        line-height: 1.2;
+        text-shadow: 0 0 12px rgba(255, 255, 255, 1);
+    }
+    .hud-grid-item.center-aligned h2 {
+        margin-bottom: -0.5rem;
+    }
+    .hud-grid-item.empty.left-aligned {
+        justify-content: flex-start;
+    }
+    .hud-grid-item.empty.right-aligned {
+        justify-content: flex-end;
+    }
+
+    .square {
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 2px solid var(--ecolatina-aqua);
+        border-radius: 0.25rem;
+    }
+    .benefit-description {
+        text-align: center;
+        margin-top: 1rem;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        /* gap: 0.5rem; */
+        opacity: 0;
+    }
+    .benefit-description span {
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+    .footer {
+        height: 20vh;
+    }
+    .marquee-container {
+        width: 100%;
+        height: 48px;
+        position: relative;
+        background-color: var(--ecolatina-light-gray);
+        transform: translateY(-48px);
+    }
+    .display-container {
+        width: 100%;
+        display: flex;
+        overflow-x: hidden;
+        position: absolute;
+        bottom: 1rem;
+        left: 0;
+    }
+
+    .reports-marquee {
+        margin-right: 1rem;
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+        animation: scroll 10s linear infinite;
+        white-space: nowrap;
+    }
+    .reports-marquee-fade {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to right,
+            var(--ecolatina-light-gray) 5%,
+            transparent 10%,
+            transparent 90%,
+            var(--ecolatina-light-gray) 95%
+        );
+        z-index: 10;
+    }
+    .reports-marquee span {
+        font-weight: 400;
+        color: var(--ecolatina-dark-gray);
+        /* margin-top: -40px; */
+    }
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(calc(-100% - 1rem));
+        }
+    }
+
+    /* Base styles for largest screens (1920px and above) in landscape */
+    @media (orientation: landscape) and (min-width: 1920px) {
+        /* Add any specific adjustments for very large screens */
+        .hud-grid {
+            width: 75%; /* Slightly smaller relative width for very large screens */
+            max-width: 1800px; /* Prevent excessive stretching */
+            transform: translateY(-20%);
+        }
+    }
+
+    /* Your current styles should be wrapped in this media query */
+    @media (orientation: landscape) and (min-width: 1600px) and (max-width: 1919px) {
+        /* Your current styles go here - this is your "default" design range */
+        .hud-grid {
+            width: 80%;
+            aspect-ratio: 3/1;
+        }
+        /* ... other current styles ... */
+    }
+
+    /* Breakpoint for 1440px-1599px */
+    @media (orientation: landscape) and (min-width: 1440px) and (max-width: 1599px) {
+        .hud-grid {
+            width: 85%; /* Slightly wider relative to screen */
+            aspect-ratio: 2.8/1; /* Slightly less wide */
+            transform: translateY(-20%);
+        }
+
+        .title h1 {
+            font-size: 2.4rem; /* Slightly smaller than your current 2.65rem */
+        }
+        .subheader {
+            bottom: 5%;
+            width: 80%;
+        }
+
+        .hud-grid-item h2 {
+            font-size: 1.1rem; /* Slightly smaller than your current 1.2rem */
+        }
+        .hud-grid-item.bottom-aligned h2 {
+            margin-bottom: -3rem;
+        }
+        .computer-container {
+            width: 50%;
+        }
+        #club-ecolatina-cta {
+            transform: translate(-50%, calc(-300%));
+        }
+        .background-container {
+            width: 50%;
+            transform: translate(-50%, calc(-50% - 48px));
+        }
+    }
+
+    /* Breakpoint for 1366px-1439px */
+    @media (orientation: landscape) and (min-width: 1366px) and (max-width: 1439px) {
+        .hud-grid {
+            width: 75%;
+            aspect-ratio: 2.5/1;
+            transform: translateY(-12%);
+        }
+        #ondas {
+            width: 100%;
+            transform: translateY(-25%);
+        }
+        .title h1 {
+            font-size: 2rem;
+        }
+        .subheader {
+            bottom: 0%;
+            width: 80%;
+        }
+
+        .hud-grid-item h2 {
+            font-size: 1rem;
+        }
+        .hud-grid-item.bottom-aligned h2 {
+            margin-bottom: -3rem;
+        }
+
+        .computer-container {
+            width: 40%;
+            transform: translate(-50%, -50%); /* Slightly smaller computer */
+        }
+        .background-container {
+            width: 40%;
+            transform: translate(-50%, calc(-50% - 25px));
+        }
+        #club-ecolatina-cta {
+            transform: translate(-50%, calc(-250%));
+        }
+        .benefit-description {
+            max-width: 700px; /* Smaller max-width for text */
+        }
+        /* #club-ecolatina-cta {
+            transform: translate(-50%, calc(-50% - var(--header-height)));
+            padding: 0.5rem 0rem;
+        } */
+    }
+
+    /* Hide all layouts by default */
+    .landscape-layout,
+    .portrait-layout,
+    .mobile-layout {
+        display: none;
+    }
+
+    /* Show landscape layout for landscape orientation on larger screens */
+    @media (orientation: landscape) and (min-width: 1024px) {
+        .landscape-layout {
+            display: block;
+        }
+    }
+
+    /* Show portrait layout for portrait orientation on tablets and larger */
+    @media (orientation: portrait) and (min-width: 768px) {
+        .portrait-layout {
+            display: block;
+        }
+    }
+
+    /* Show mobile layout for smaller screens (both orientations) */
+    @media (max-width: 767px) {
+        .mobile-layout {
+            display: block;
+        }
+    }
+</style>
+
+<div class="main-container">
+    <link
+        rel="preload"
+        as="image"
+        href="https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu1_kihhid.webp"
+    />
+    <link
+        rel="preload"
+        as="image"
+        href="https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu2_zcn6vf.webp"
+    />
+    <link
+        rel="preload"
+        as="image"
+        href="https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/compu3_nongnc.webp"
+    />
+    <link
+        rel="preload"
+        as="image"
+        href="https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu4_ievtk6.webp"
+    />
+    <link
+        rel="preload"
+        as="image"
+        href="https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu5_rtywyw.webp"
+    />
+    <link
+        rel="preload"
+        as="image"
+        href="https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu6_eg6xzt.webp"
+    />
+    <link
+        rel="preload"
+        as="image"
+        href="https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu7_fpu6ii.webp"
+    />
+    <div class="landscape-layout">
+        <div class="scroll-container">
+            <section class="title">
+                <h1>Inteligencia para <br />decisiones estratégicas</h1>
+
+                <img
+                    id="ondas"
+                    src="https://res.cloudinary.com/duykgwmak/image/upload/v1743478442/ondas_mwzyu5.svg"
+                    width="100%"
+                    alt="ondas"
+                />
+                <div class="subheader">
+                    <p>
+                        Accedé a la información económica más confiable y
+                        análisis clave para anticiparte al mercado.<br />
+                        <strong>
+                            Con insights diarios, asesoramiento directo y
+                            networking exclusivo.
+                        </strong>
+                    </p>
+                    <h4>SCROLLEÁ PARA DESCUBRIR TODOS LOS BENEFICIOS</h4>
+                </div>
+                <button id="club-ecolatina-cta">Solicitá tu cotización</button>
+            </section>
+            <section class="hud-grid-container">
+                <div class="hud-grid">
+                    <div
+                        class="hud-grid-item left-aligned top-aligned"
+                        data-benefit-index="0"
+                    >
+                        <h2 class="benefit-title">
+                            Red de alianzas <br />estratégicas
+                        </h2>
+                        <img
+                            src="https://res.cloudinary.com/duykgwmak/image/upload/v1743476265/hud-top-left_xvdmht.svg"
+                            alt=""
+                        />
+                    </div>
+                    <div
+                        class="hud-grid-item empty top-aligned left-aligned"
+                    ></div>
+                    <div
+                        class="hud-grid-item empty top-aligned right-aligned"
+                    ></div>
+
+                    <div
+                        class="hud-grid-item right-aligned top-aligned"
+                        data-benefit-index="1"
+                    >
+                        <h2 class="benefit-title">
+                            Información <br />estratégica diaria
+                        </h2>
+                        <img
+                            class="hud-line"
+                            src="https://res.cloudinary.com/duykgwmak/image/upload/v1743475680/hud-top-right_zgnehr.svg"
+                            alt=""
+                        />
+                    </div>
+                    <div
+                        class="hud-grid-item left-aligned"
+                        data-benefit-index="2"
+                    >
+                        <h2 class="benefit-title">
+                            Networking High Level <br />
+                            (Webinars, encuentros inhouse)
+                        </h2>
+                        <img
+                            src="https://res.cloudinary.com/duykgwmak/image/upload/v1743477081/hud-mid-left_toqfxw.svg"
+                            alt=""
+                        />
+                    </div>
+                    <div
+                        class="hud-grid-item empty center-aligned left-aligned"
+                    ></div>
+                    <div
+                        class="hud-grid-item empty center-aligned right-aligned"
+                    ></div>
+
+                    <div
+                        class="hud-grid-item right-aligned"
+                        data-benefit-index="3"
+                    >
+                        <h2 class="benefit-title">
+                            Noticias directo <br />a tu celular (Appvisor)
+                        </h2>
+                        <img
+                            src="https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-mid-right_nggbe0.svg"
+                            alt=""
+                        />
+                    </div>
+                    <div
+                        class="hud-grid-item left-aligned bottom-aligned"
+                        data-benefit-index="4"
+                    >
+                        <h2 class="benefit-title bottom-aligned">
+                            Contacto directo<br />
+                            con economistas
+                        </h2>
+                        <img
+                            src="https://res.cloudinary.com/duykgwmak/image/upload/v1743477210/hud-bottom-left_y0i763.svg"
+                            alt=""
+                        />
+                    </div>
+                    <div
+                        class="hud-grid-item empty bottom-aligned left-aligned"
+                    ></div>
+                    <div
+                        class="hud-grid-item empty bottom-aligned right-aligned"
+                    ></div>
+
+                    <div
+                        class="hud-grid-item right-aligned bottom-aligned"
+                        data-benefit-index="5"
+                    >
+                        <h2 class="benefit-title bottom-aligned">
+                            Cobertura completa<br />
+                            y transversal
+                        </h2>
+                        <img
+                            src="https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-bottom-right_pu41hq.svg"
+                            alt=""
+                        />
+                    </div>
+                </div>
+            </section>
+            <div class="computer-container">
+                <img
+                    id="benefit-computer"
+                    src="https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu1_kihhid.webp"
+                    alt="computadora"
+                    class="computer"
+                />
+
+                <div class="benefit-description" id="benefit-description">
+                    <span id="benefit-subtitle">
+                        Actualización en tiempo real
+                    </span>
+                    <div id="benefit-description-text">
+                        <p>
+                            Accedé a información clave en cualquier momento a
+                            través de
+                            <strong>AppVisor</strong>, <br />la plataforma líder
+                            en inteligencia económica para ejecutivos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="marquee-container">
+            <div class="reports-marquee-fade"></div>
+            <div class="display-container">
+                <div class="reports-marquee">
+                    <span>Economic Daily</span><span>•</span>
+                    <span>Finance Daily</span><span>•</span>
+                    <span>Weekly Report</span><span>•</span>
+                    <span>Quinquenal Sectorial</span><span>•</span>
+                    <span>Monthly Report</span><span>•</span>
+                    <span>Panorama Político</span><span>•</span>
+                    <span>Economía Lationamericana</span><span>•</span>
+                </div>
+                <div class="reports-marquee">
+                    <span>Economic Daily</span><span>•</span>
+                    <span>Finance Daily</span><span>•</span>
+                    <span>Weekly Report</span><span>•</span>
+                    <span>Quinquenal Sectorial</span><span>•</span>
+                    <span>Monthly Report</span><span>•</span>
+                    <span>Panorama Político</span><span>•</span>
+                    <span>Economía Lationamericana</span><span>•</span>
+                </div>
+                <div class="reports-marquee">
+                    <span>Economic Daily</span><span>•</span>
+                    <span>Finance Daily</span><span>•</span>
+                    <span>Weekly Report</span><span>•</span>
+                    <span>Quinquenal Sectorial</span><span>•</span>
+                    <span>Monthly Report</span><span>•</span>
+                    <span>Panorama Político</span><span>•</span>
+                    <span>Economía Lationamericana</span><span>•</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Motion.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/motion@10.16.4/dist/motion.min.js"></script>
+
+<script>
+    // Add this before the existing script
+    function calculateSpacing() {
+        // Function to get actual height of an element including margin
+        function getFullHeight(element) {
+            if (!element) return 0;
+            const styles = window.getComputedStyle(element);
+            const margin =
+                parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
+            return Math.ceil(element.offsetHeight + margin);
+        }
+
+        // Find WordPress header and footer
+        const wpAdminBar = document.querySelector('#wpadminbar');
+        const wpHeader =
+            document.querySelector('header') ||
+            document.querySelector('#site-header');
+        const wpFooter =
+            document.querySelector('footer') ||
+            document.querySelector('#site-footer');
+
+        // Get the heights
+        const headerHeight = getFullHeight(wpHeader);
+        const footerHeight = getFullHeight(wpFooter);
+        const adminBarHeight = getFullHeight(wpAdminBar);
+        // Update CSS variables
+        document.documentElement.style.setProperty(
+            '--header-height',
+            `${headerHeight}px`
+        );
+        document.documentElement.style.setProperty(
+            '--footer-height',
+            `${footerHeight}px`
+        );
+
+        // // Adjust scroll container height
+        // const scrollContainer = document.querySelector('.scroll-container');
+        // if (scrollContainer) {
+        //     scrollContainer.style.height = `calc(200vh + ${headerHeight}px + ${footerHeight}px)`;
+        // }
+
+        // Adjust other elements that depend on header height
+
+        // const hudGridContainer = document.querySelector('.hud-grid-container');
+        // if (hudGridContainer) {
+        //     hudGridContainer.style.height = `calc(100vh + ${headerHeight}px)`;
+        //     hudGridContainer.style.marginBottom = `${footerHeight}px`;
+        // }
+
+        // Adjust fixed elements
+        // const computerContainer = document.querySelector('.computer-container');
+        // const backgroundContainer = document.querySelector(
+        //     '.background-container'
+        // );
+        // const cta = document.querySelector('#club-ecolatina-cta');
+
+        // if (computerContainer) {
+        //     computerContainer.style.top = `calc(46% + ${headerHeight}px)`;
+        // }
+        // if (backgroundContainer) {
+        //     backgroundContainer.style.top = `calc(46% + ${headerHeight}px)`;
+        // }
+        // if (cta) {
+        //     cta.style.top = `calc(50% + ${headerHeight}px)`;
+        // }
+    }
+
+    // Call on load and resize
+    window.addEventListener('load', calculateSpacing);
+    window.addEventListener('resize', calculateSpacing);
+
+    // Recalculate periodically for dynamic headers
+    setInterval(calculateSpacing, 1000);
+
+    // Existing benefits data and DOM loaded event handler
+    const benefits = [
+        {
+            title: '<span>Red de alianzas <br />estratégicas</span>',
+            subtitle: 'Alianzas estratégicas para una visión 360°',
+            description: `<p>Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu2_zcn6vf.webp',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743476265/hud-top-left_xvdmht.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-top-left-selected_qia7bz.svg',
+        },
+        {
+            title: '<span>Información <br/>estratégica diaria</span>',
+            subtitle: 'Insights diarios para decisiones estratégicas',
+            description: `<p>Accedé a reportes exclusivos con datos clave y análisis en tiempo real<br/> para respaldar la toma de decisiones</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/compu3_nongnc.webp',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475680/hud-top-right_zgnehr.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-top-right-selected_k5ggy6.svg',
+        },
+        {
+            title: '<span>Networking High Level<br />(Webinars, encuentros inhouse)</span>',
+            subtitle: 'Networking exclusivo con líderes del sector',
+            description: `<p>Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu4_ievtk6.webp',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743477081/hud-mid-left_toqfxw.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-mid-left-selected_ng7tsc.svg',
+        },
+        {
+            title: '<span>Noticias directo a tu celular<br />(Appvisor)</span>',
+            subtitle: 'Actualización en tiempo real',
+            description: `<p>Accedé a información clave en cualquier momento a través de AppVisor, la plataforma líder en inteligencia económica para ejecutivos.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu5_rtywyw.webp',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-mid-right_nggbe0.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-mid-right-selected_uqwjrf.svg',
+        },
+        {
+            title: '<span>Contacto directo<br />con economistas</span>',
+            subtitle: 'Acceso directo a los principales economistas',
+            description: `<p>Asesoramiento inmediato de nuestros expertos vía WhatsApp,<br/> teléfono o email, cuando tu negocio lo requiera.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu6_eg6xzt.webp',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743477210/hud-bottom-left_y0i763.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/hud-bottom-left-selected_ze0pxy.svg',
+        },
+        {
+            title: '<span>Cobertura completa<br />y transversal</span>',
+            subtitle: 'Visión integral para toda la organización',
+            description: `<p>Información alineada para toda la empresa, garantizando coherencia<br/> en el análisis económico y estratégico.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu7_fpu6ii.webp',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-bottom-right_pu41hq.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/hud-bottom-right-selected_vqk0lk.svg',
+        },
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Calculate spacing on DOM load
+        calculateSpacing();
+
+        const benefitComputer = document.querySelector('#benefit-computer');
+
+        const scrollContainer = document.querySelector('.scroll-container');
+        const hudGrid = document.querySelector('.hud-grid');
+        const titleText = document.querySelector('.title h1');
+        const cta = document.querySelector('#club-ecolatina-cta');
+        const ondas = document.querySelector('#ondas');
+        const subheader = document.querySelector('.subheader');
+        const benefitDescriptionContainer = document.querySelector(
+            '#benefit-description'
+        );
+        const benefitSubtitle = document.querySelector('#benefit-subtitle');
+        const benefitDescription = document.querySelector(
+            '#benefit-description-text'
+        );
+        const startingComputerUrl =
+            'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu1_kihhid.webp';
+
+        // Set initial states
+        hudGrid.style.opacity = '0';
+        benefitDescription.style.opacity = '0';
+        benefitComputer.style.opacity = '1';
+        benefitComputer.src = startingComputerUrl;
+
+        benefitDescriptionContainer.style.opacity = '0';
+        benefitDescriptionContainer.style.display = 'none';
+        // Handle benefit clicks
+        const hudGridItems = document.querySelectorAll('.hud-grid-item');
+
+        hudGridItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                hudGridItems.forEach((item) => {
+                    item.classList.remove('selected');
+                    let img = item.querySelector('img');
+                    if (
+                        img &&
+                        img.src ==
+                            benefits[item.dataset.benefitIndex].lineSelected
+                    ) {
+                        img.src = benefits[item.dataset.benefitIndex].line;
+                    }
+                });
+                item.classList.add('selected');
+                let img = item.querySelector('img');
+
+                const benefitIndex = item.dataset.benefitIndex;
+                const benefit = benefits[benefitIndex];
+                img.src = benefit.lineSelected;
+                document.getElementById('benefit-subtitle').textContent =
+                    benefit.subtitle;
+                document.getElementById('benefit-description-text').innerHTML =
+                    benefit.description;
+
+                document.getElementById('benefit-computer').src =
+                    benefit.computer;
+            });
+        });
+        Motion.inView('title', (inView, info) => {
+            Motion.animate(titleText, { opacity: 1 }, { duration: 0.2 });
+            Motion.animate(ondas, { opacity: 1, scale: 1 }, { duration: 0.5 });
+            ondas.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+            });
+            return () => {
+                Motion.animate(titleText, { opacity: 0 }, { duration: 1 });
+                Motion.animate(
+                    ondas,
+                    { opacity: 0, scale: 1.2 },
+                    { duration: 1 }
+                );
+            };
+        });
+        Motion.inView('.hud-grid', (inView, info) => {
+            const windowHeight = window.innerHeight;
+            const offset = windowHeight * 0.075;
+            console.log('offset', offset);
+            hudGrid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // console.log('inView', inView, info);
+            Motion.animate(
+                hudGrid,
+                { opacity: 1, transform: `translateY(-${offset}px)` },
+                { duration: 1 }
+            );
+            Motion.animate(
+                benefitDescription,
+                {
+                    display: 'block',
+                    opacity: 1,
+                    transform: `translateY(${offset}px)`,
+                },
+                { duration: 0.75 }
+            );
+            Motion.animate(
+                benefitDescriptionContainer,
+                { display: 'block', opacity: 1 },
+                { duration: 0.75 }
+            );
+            // Motion.animate(
+            //     benefitComputer,
+            //     { transform: 'translateY(calc( - var(--header-height)))' },
+            //     { duration: 0.75 }
+            // );
+            // const cta = document.querySelector('#club-ecolatina-cta');
+            // Motion.animate(
+            //     cta,
+            //     {
+            //         transform:
+            //             'translate(-50%, calc(-40% - var(--header-height)))',
+            //     },
+            //     { duration: 0.75 }
+            // );
+            return () => {
+                Motion.animate(hudGrid, { opacity: 0 }, { duration: 0.5 });
+                Motion.animate(
+                    benefitDescriptionContainer,
+                    {
+                        opacity: 0,
+                    },
+                    { duration: 0.2 }
+                );
+            };
+        });
+        // Motion.scroll((scroll, info) => {
+        //     // console.log('scroll', scroll, info);
+        //     const scrollPercentage = scroll.y.current / scroll.y.scrollLength;
+        //     Motion.animate(
+        //         hudGrid,
+        //         {
+        //             opacity: scrollPercentage,
+        //         },
+        //         { duration: 0.3 }
+        //     );
+        //     Motion.animate(
+        //         benefitDescriptionContainer,
+        //         { opacity: scrollPercentage },
+        //         { duration: 0.3 }
+        //     );
+        //     Motion.animate(
+        //         benefitDescription,
+        //         { opacity: scrollPercentage },
+        //         { duration: 0.3 }
+        //     );
+        // }, scrollContainer);
+
+        // Function to handle scroll animation
+        // function handleScroll() {
+        //     const scrollPosition = window.scrollY;
+        //     const windowHeight = window.innerHeight;
+        //     const headerHeight =
+        //         document.querySelector('#site-header').offsetHeight;
+        //     const scrollPercentage = Math.min(
+        //         scrollPosition / (windowHeight + headerHeight),
+        //         1
+        //     );
+
+        //     // Fade out title and ondas
+        //     Motion.animate(
+        //         titleText,
+        //         {
+        //             opacity: 1 - scrollPercentage,
+        //             y: -100 * scrollPercentage,
+        //         },
+        //         { duration: 0.3 }
+        //     );
+
+        //     Motion.animate(
+        //         ondas,
+        //         {
+        //             opacity: Math.max(0.5 - scrollPercentage, 0),
+        //             scale: Math.min(1 + scrollPercentage * 0.75, 1.2),
+        //         },
+        //         { duration: 0.2 }
+        //     );
+
+        //     Motion.animate(
+        //         subheader,
+        //         {
+        //             opacity: 1 - scrollPercentage,
+        //         },
+        //         { duration: 0.3 }
+        //     );
+
+        //     // Fade in hud-grid
+        //     Motion.animate(
+        //         hudGrid,
+        //         {
+        //             opacity: scrollPercentage,
+        //         },
+        //         { duration: 0.3 }
+        //     );
+
+        //     Motion.animate(
+        //         benefitSubtitle,
+        //         { opacity: scrollPercentage },
+        //         { duration: 0.2 }
+        //     );
+
+        //     Motion.animate(
+        //         benefitDescription,
+        //         { opacity: scrollPercentage },
+        //         { duration: 0.2 }
+        //     );
+
+        //     Motion.animate(
+        //         benefitDescriptionContainer,
+        //         { opacity: scrollPercentage },
+        //         { duration: 0.2 }
+        //     );
+
+        //     Motion.animate(
+        //         benefitComputer,
+        //         {
+        //             opacity: scrollPercentage * 0.8 + 1,
+        //             filter: `brightness(${
+        //                 100 + (scrollPercentage - 0.1) * 35
+        //             }%)`,
+        //             transform: `translateY(${scrollPercentage * -5}%)`,
+        //         },
+        //         { duration: 0.3 }
+        //     );
+
+        //     // if (scrollPercentage < 0.25) {
+        //     //     benefitComputer.src = startingComputerUrl;
+        //     // }
+        // }
+
+        // // Add scroll event listener
+        // window.addEventListener('scroll', handleScroll);
+
+        // // Initialize marquee
+        // const marqueeContent = document.querySelector('.reports-marquee');
+        // const clone = marqueeContent.cloneNode(true);
+        // document.querySelector('.display-container').appendChild(clone);
+    });
+</script>
