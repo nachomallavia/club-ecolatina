@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<div class="testimonials-container">
+    <script src="https://cdn.jsdelivr.net/npm/motion@10.16.4/dist/motion.min.js"></script>
+    <div class="testimonials-carousel">
+        <!-- Testimonials will be populated here -->
+    </div>
+    <div class="carousel-controls">
+        <button class="prev-btn">❮</button>
+        <div class="dots-container"></div>
+        <button class="next-btn">❯</button>
+    </div>
+</div>
+
+<style>
+    :root {
+        --ecolatina-green: #00625d;
+        --ecolatina-green-2: #34a19b;
+        --ecolatina-aqua: #7bbfb7;
+        --ecolatina-aqua-2: #b6f4ed;
+        --ecolatina-light-gray: #f7f7f7;
+        --ecolatina-dark-gray: #606060;
+        --ecolatina-gray: #939598;
+        --ecolatina-soft-gray: #d8d8d5;
+        --header-height: 100px;
+        --footer-height: 100px;
+        --marquee-delay: -30s;
+        --marquee-duration: 20s;
+        --marquee-items: 12;
+        --marquee-height: 80px;
+    }
+    .testimonials-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        position: relative;
+    }
+
+    .testimonials-carousel {
+        overflow: hidden;
+        position: relative;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+    }
+
+    .testimonial-slide {
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        text-align: center;
+        padding: 20px;
+        left: 0;
+        right: 0;
+    }
+
+    .testimonial-slide.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .testimonial-content {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .testimonial-content p {
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .testimonial-author {
+        margin-top: 20px;
+        position: relative;
+        padding-top: 10px;
+    }
+
+    .testimonial-author img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+
+    .testimonial-author .name {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .testimonial-author .title {
+        color: #666;
+        font-size: 0.9em;
+    }
+
+    .carousel-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .prev-btn,
+    .next-btn {
+        background: var(--ecolatina-green);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s;
+    }
+
+    .prev-btn:hover,
+    .next-btn:hover {
+        background: var(--ecolatina-green-2);
+    }
+
+    .dots-container {
+        display: flex;
+        gap: 8px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .dot.active {
+        background: var(--ecolatina-green-2);
+    }
+</style>
+
+<script>
+    const testimonials = [
+        {
+            content:
+                'Club Ecolatina ha transformado por completo mi comprensión de la economía. Sus análisis profundos y perspectivas únicas son invaluables.',
+            author: 'María González',
+            title: 'CEO, Inversiones Futuro',
+            image: 'https://randomuser.me/api/portraits/women/1.jpg',
+        },
+        {
+            content:
+                'La calidad de los informes y el nivel de detalle en los análisis económicos son excepcionales. Una herramienta indispensable para la toma de decisiones.',
+            author: 'Carlos Rodríguez',
+            title: 'Director Financiero, Grupo Industrial',
+            image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        {
+            content:
+                'El equipo de Club Ecolatina ofrece una visión única del mercado. Sus pronósticos han sido fundamentales para nuestra estrategia de negocio.',
+            author: 'Ana Martínez',
+            title: 'Gerente de Inversiones, Banco Nacional',
+            image: 'https://randomuser.me/api/portraits/women/2.jpg',
+        },
+    ];
+
+    class TestimonialsCarousel {
+        constructor() {
+            this.currentSlide = 0;
+            this.carousel = document.querySelector('.testimonials-carousel');
+            this.dotsContainer = document.querySelector('.dots-container');
+            this.autoAdvanceInterval = null;
+
+            this.initializeCarousel();
+            this.setupControls();
+            this.showSlide(0);
+            this.startAutoAdvance();
+        }
+
+        startAutoAdvance() {
+            // Clear any existing interval
+            if (this.autoAdvanceInterval) {
+                clearInterval(this.autoAdvanceInterval);
+            }
+            // Start new interval
+            this.autoAdvanceInterval = setInterval(
+                () => this.nextSlide(),
+                3000
+            );
+        }
+
+        stopAutoAdvance() {
+            if (this.autoAdvanceInterval) {
+                clearInterval(this.autoAdvanceInterval);
+                this.autoAdvanceInterval = null;
+            }
+        }
+
+        initializeCarousel() {
+            // Create slides
+            testimonials.forEach((testimonial, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'testimonial-slide';
+                slide.innerHTML = `
+                <div class="testimonial-content">
+                    <p>${testimonial.content}</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="${testimonial.image}" alt="${testimonial.author}">
+                    <div class="name">${testimonial.author}</div>
+                    <div class="title">${testimonial.title}</div>
+                </div>
+            `;
+                this.carousel.appendChild(slide);
+
+                // Create dot
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                dot.addEventListener('click', () => this.showSlide(index));
+                this.dotsContainer.appendChild(dot);
+            });
+        }
+
+        setupControls() {
+            document
+                .querySelector('.prev-btn')
+                .addEventListener('click', () => {
+                    this.stopAutoAdvance();
+                    this.previousSlide();
+                });
+
+            document
+                .querySelector('.next-btn')
+                .addEventListener('click', () => {
+                    this.stopAutoAdvance();
+                    this.nextSlide();
+                });
+
+            // Also stop auto-advance when clicking dots
+            this.dotsContainer.addEventListener('click', () => {
+                this.stopAutoAdvance();
+            });
+        }
+
+        showSlide(index) {
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.dot');
+
+            // Determine direction based on current and target index
+            const direction =
+                index > this.currentSlide
+                    ? // Moving forward
+                      { enter: ['50px', '0px'], exit: ['0px', '-50px'] }
+                    : // Moving backward
+                      { enter: ['-50px', '0px'], exit: ['0px', '50px'] };
+
+            // Handle wrapping cases
+            if (index === 0 && this.currentSlide === slides.length - 1) {
+                // Moving forward from last to first
+                direction.enter = ['50px', '0px'];
+                direction.exit = ['0px', '-50px'];
+            } else if (index === slides.length - 1 && this.currentSlide === 0) {
+                // Moving backward from first to last
+                direction.enter = ['-50px', '0px'];
+                direction.exit = ['0px', '50px'];
+            }
+
+            // Update slides
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    // Animate entering slide
+                    slide.classList.add('active');
+                    Motion.animate(
+                        slide,
+                        {
+                            opacity: [0, 1],
+                            scale: [0.95, 1],
+                            x: direction.enter,
+                        },
+                        {
+                            duration: 0.2,
+                            easing: 'ease-out',
+                        }
+                    );
+                } else if (slide.classList.contains('active')) {
+                    // Animate leaving slide
+                    Motion.animate(
+                        slide,
+                        {
+                            opacity: [1, 0],
+                            scale: [1, 0.95],
+                            x: direction.exit,
+                        },
+                        {
+                            duration: 0.2,
+                            easing: 'ease-in',
+                        }
+                    ).finished.then(() => {
+                        slide.classList.remove('active');
+                    });
+                }
+            });
+
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            this.currentSlide = index;
+        }
+
+        nextSlide() {
+            const nextIndex = (this.currentSlide + 1) % testimonials.length;
+            this.showSlide(nextIndex);
+        }
+
+        previousSlide() {
+            const prevIndex =
+                (this.currentSlide - 1 + testimonials.length) %
+                testimonials.length;
+            this.showSlide(prevIndex);
+        }
+    }
+
+    // Initialize the carousel when the DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        new TestimonialsCarousel();
+    });
+</script>
