@@ -1,13 +1,12 @@
-<!DOCTYPE html>
 <div class="testimonials-container">
     <script src="https://cdn.jsdelivr.net/npm/motion@10.16.4/dist/motion.min.js"></script>
+    <button class="nacho-prev-btn">❮</button>
     <div class="testimonials-carousel">
         <!-- Testimonials will be populated here -->
     </div>
+    <button class="nacho-next-btn">❯</button>
     <div class="carousel-controls">
-        <button class="prev-btn">❮</button>
         <div class="dots-container"></div>
-        <button class="next-btn">❯</button>
     </div>
 </div>
 
@@ -33,6 +32,9 @@
         margin: 0 auto;
         padding: 20px;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .testimonials-carousel {
@@ -41,6 +43,7 @@
         min-height: 400px;
         display: flex;
         align-items: center;
+        width: 100%;
     }
 
     .testimonial-slide {
@@ -65,52 +68,52 @@
         border-radius: 10px;
         padding: 30px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
+        margin: 0 40px;
         min-height: 150px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 
     .testimonial-content p {
         margin: 0;
         line-height: 1.6;
+        margin-bottom: 20px;
     }
 
     .testimonial-author {
-        margin-top: 20px;
-        position: relative;
-        padding-top: 10px;
+        margin-bottom: 20px;
     }
 
     .testimonial-author img {
-        width: 60px;
-        height: 60px;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
         margin-bottom: 10px;
+        border: 3px solid var(--ecolatina-aqua);
     }
 
-    .testimonial-author .name {
+    .testimonial-content .name {
         font-weight: bold;
         color: #333;
         margin-bottom: 5px;
     }
 
-    .testimonial-author .title {
+    .testimonial-content .title {
         color: #666;
         font-size: 0.9em;
     }
 
     .carousel-controls {
+        margin-top: 20px;
         display: flex;
         justify-content: center;
-        align-items: center;
-        gap: 20px;
-        margin-top: 20px;
+        width: 100%;
     }
 
-    .prev-btn,
-    .next-btn {
+    .nacho-prev-btn,
+    .nacho-next-btn {
         background: var(--ecolatina-green);
         color: white;
         border: none;
@@ -120,10 +123,22 @@
         cursor: pointer;
         font-size: 18px;
         transition: background-color 0.3s;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
     }
 
-    .prev-btn:hover,
-    .next-btn:hover {
+    .nacho-prev-btn {
+        left: -20px;
+    }
+
+    .nacho-next-btn {
+        right: -20px;
+    }
+
+    .nacho-prev-btn:hover,
+    .nacho-next-btn:hover {
         background: var(--ecolatina-green-2);
     }
 
@@ -143,6 +158,20 @@
 
     .dot.active {
         background: var(--ecolatina-green-2);
+    }
+
+    @media (max-width: 600px) {
+        .nacho-prev-btn {
+            left: 0;
+        }
+
+        .nacho-next-btn {
+            right: 0;
+        }
+
+        .testimonial-content {
+            margin: 0 20px;
+        }
     }
 </style>
 
@@ -171,166 +200,159 @@
         },
     ];
 
-    class TestimonialsCarousel {
-        constructor() {
-            this.currentSlide = 0;
-            this.carousel = document.querySelector('.testimonials-carousel');
-            this.dotsContainer = document.querySelector('.dots-container');
-            this.autoAdvanceInterval = null;
+    const createCarousel = () => {
+        // State
+        let currentSlide = 0;
+        let autoAdvanceInterval = null;
 
-            this.initializeCarousel();
-            this.setupControls();
-            this.showSlide(0);
-            this.startAutoAdvance();
-        }
+        // DOM Elements
+        const carousel = document.querySelector('.testimonials-carousel');
+        const dotsContainer = document.querySelector('.dots-container');
 
-        startAutoAdvance() {
-            // Clear any existing interval
-            if (this.autoAdvanceInterval) {
-                clearInterval(this.autoAdvanceInterval);
-            }
-            // Start new interval
-            this.autoAdvanceInterval = setInterval(
-                () => this.nextSlide(),
-                3000
-            );
-        }
-
-        stopAutoAdvance() {
-            if (this.autoAdvanceInterval) {
-                clearInterval(this.autoAdvanceInterval);
-                this.autoAdvanceInterval = null;
-            }
-        }
-
-        initializeCarousel() {
-            // Create slides
-            testimonials.forEach((testimonial, index) => {
-                const slide = document.createElement('div');
-                slide.className = 'testimonial-slide';
-                slide.innerHTML = `
-                <div class="testimonial-content">
-                    <p>${testimonial.content}</p>
-                </div>
-                <div class="testimonial-author">
-                    <img src="${testimonial.image}" alt="${testimonial.author}">
-                    <div class="name">${testimonial.author}</div>
-                    <div class="title">${testimonial.title}</div>
-                </div>
-            `;
-                this.carousel.appendChild(slide);
-
-                // Create dot
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                dot.addEventListener('click', () => this.showSlide(index));
-                this.dotsContainer.appendChild(dot);
+        // Animation helpers
+        const animateSlide = (slide, props, options) => {
+            return Motion.animate(slide, props, {
+                duration: 0.2,
+                ...options,
             });
-        }
+        };
 
-        setupControls() {
-            document
-                .querySelector('.prev-btn')
-                .addEventListener('click', () => {
-                    this.stopAutoAdvance();
-                    this.previousSlide();
-                });
-
-            document
-                .querySelector('.next-btn')
-                .addEventListener('click', () => {
-                    this.stopAutoAdvance();
-                    this.nextSlide();
-                });
-
-            // Also stop auto-advance when clicking dots
-            this.dotsContainer.addEventListener('click', () => {
-                this.stopAutoAdvance();
-            });
-        }
-
-        showSlide(index) {
-            const slides = document.querySelectorAll('.testimonial-slide');
-            const dots = document.querySelectorAll('.dot');
-
-            // Determine direction based on current and target index
+        const getDirectionOffsets = (newIndex) => {
             const direction =
-                index > this.currentSlide
-                    ? // Moving forward
-                      { enter: ['50px', '0px'], exit: ['0px', '-50px'] }
-                    : // Moving backward
-                      { enter: ['-50px', '0px'], exit: ['0px', '50px'] };
+                newIndex > currentSlide
+                    ? { enter: ['50px', '0px'], exit: ['0px', '-50px'] }
+                    : { enter: ['-50px', '0px'], exit: ['0px', '50px'] };
 
             // Handle wrapping cases
-            if (index === 0 && this.currentSlide === slides.length - 1) {
-                // Moving forward from last to first
-                direction.enter = ['50px', '0px'];
-                direction.exit = ['0px', '-50px'];
-            } else if (index === slides.length - 1 && this.currentSlide === 0) {
-                // Moving backward from first to last
-                direction.enter = ['-50px', '0px'];
-                direction.exit = ['0px', '50px'];
+            if (newIndex === 0 && currentSlide === testimonials.length - 1) {
+                return { enter: ['50px', '0px'], exit: ['0px', '-50px'] };
+            }
+            if (newIndex === testimonials.length - 1 && currentSlide === 0) {
+                return { enter: ['-50px', '0px'], exit: ['0px', '50px'] };
             }
 
-            // Update slides
+            return direction;
+        };
+
+        // Core functions
+        const showSlide = (index) => {
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.dot');
+            const direction = getDirectionOffsets(index);
+
             slides.forEach((slide, i) => {
                 if (i === index) {
-                    // Animate entering slide
                     slide.classList.add('active');
-                    Motion.animate(
+                    animateSlide(
                         slide,
                         {
                             opacity: [0, 1],
                             scale: [0.95, 1],
                             x: direction.enter,
                         },
-                        {
-                            duration: 0.2,
-                            easing: 'ease-out',
-                        }
+                        { easing: 'ease-out' }
                     );
                 } else if (slide.classList.contains('active')) {
-                    // Animate leaving slide
-                    Motion.animate(
+                    animateSlide(
                         slide,
                         {
                             opacity: [1, 0],
                             scale: [1, 0.95],
                             x: direction.exit,
                         },
-                        {
-                            duration: 0.2,
-                            easing: 'ease-in',
-                        }
-                    ).finished.then(() => {
-                        slide.classList.remove('active');
-                    });
+                        { easing: 'ease-in' }
+                    ).finished.then(() => slide.classList.remove('active'));
                 }
             });
 
-            // Update dots
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
+            dots.forEach((dot, i) =>
+                dot.classList.toggle('active', i === index)
+            );
+            currentSlide = index;
+        };
+
+        const createSlide = (testimonial, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'testimonial-slide';
+            slide.innerHTML = `
+                <div class="testimonial-content">
+                    <div class="testimonial-author">
+                        <img src="${testimonial.image}" alt="${testimonial.author}">
+                    </div>
+                    <p>${testimonial.content}</p>
+                    <div class="name">${testimonial.author}</div>
+                    <div class="title">${testimonial.title}</div>
+                </div>
+            `;
+            return slide;
+        };
+
+        const createDot = (index) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.addEventListener('click', () => {
+                stopAutoAdvance();
+                showSlide(index);
+            });
+            return dot;
+        };
+
+        // Auto-advance functions
+        const startAutoAdvance = () => {
+            stopAutoAdvance();
+            autoAdvanceInterval = setInterval(() => {
+                const nextIndex = (currentSlide + 1) % testimonials.length;
+                showSlide(nextIndex);
+            }, 3000);
+        };
+
+        const stopAutoAdvance = () => {
+            if (autoAdvanceInterval) {
+                clearInterval(autoAdvanceInterval);
+                autoAdvanceInterval = null;
+            }
+        };
+
+        // Navigation functions
+        const nextSlide = () => {
+            stopAutoAdvance();
+            showSlide((currentSlide + 1) % testimonials.length);
+        };
+
+        const previousSlide = () => {
+            stopAutoAdvance();
+            showSlide(
+                (currentSlide - 1 + testimonials.length) % testimonials.length
+            );
+        };
+
+        // Initialize carousel
+        const initialize = () => {
+            // Create slides
+            testimonials.forEach((testimonial, index) => {
+                const slide = createSlide(testimonial, index);
+                carousel.appendChild(slide);
+                const dot = createDot(index);
+                dotsContainer.appendChild(dot);
             });
 
-            this.currentSlide = index;
-        }
+            // Setup navigation
+            document
+                .querySelector('.nacho-prev-btn')
+                .addEventListener('click', previousSlide);
+            document
+                .querySelector('.nacho-next-btn')
+                .addEventListener('click', nextSlide);
 
-        nextSlide() {
-            const nextIndex = (this.currentSlide + 1) % testimonials.length;
-            this.showSlide(nextIndex);
-        }
+            // Start carousel
+            showSlide(0);
+            startAutoAdvance();
+        };
 
-        previousSlide() {
-            const prevIndex =
-                (this.currentSlide - 1 + testimonials.length) %
-                testimonials.length;
-            this.showSlide(prevIndex);
-        }
-    }
+        // Initialize the carousel
+        initialize();
+    };
 
-    // Initialize the carousel when the DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        new TestimonialsCarousel();
-    });
+    // Start the carousel when DOM is loaded
+    document.addEventListener('DOMContentLoaded', createCarousel);
 </script>
