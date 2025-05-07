@@ -53,7 +53,7 @@
     }
     .title h1 {
         color: var(--ecolatina-green);
-        font-size: 2.65rem;
+        font-size: 2 rem;
         font-weight: 700;
         text-align: center;
         line-height: 1.125;
@@ -66,6 +66,8 @@
         width: 100%;
         opacity: 1;
         z-index: 1;
+        transform: translate(0, -50px);
+
         /* height: 664px; */
     }
 
@@ -107,7 +109,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, calc(-90% + var(--header-height)));
+        transform: translate(-50%, calc(-86% + var(--header-height)));
     }
     #club-ecolatina-cta {
         position: fixed;
@@ -120,7 +122,7 @@
         font-size: 1rem;
         color: var(--ecolatina-aqua-2);
         border: 1px solid var(--ecolatina-aqua-2);
-        border-radius: 5px;
+        border-radius: 4px;
         padding: 10px;
         z-index: 200;
         cursor: pointer;
@@ -187,13 +189,13 @@
         /* width: 100%; */
         line-height: 1.2rem;
         text-shadow: 0 0 12px rgba(255, 255, 255, 1);
-        color: var(--ecolatina-gray);
+        color: var(--ecolatina-dark-gray);
     }
     .hud-grid-item .benefit-title p {
         font-size: 1rem;
         font-weight: 300;
         line-height: 1.2rem;
-        color: var(--ecolatina-gray);
+        color: var(--ecolatina-dark-gray);
         margin-block-end: 0;
         margin-block-start: 0;
     }
@@ -225,22 +227,6 @@
         color: var(--ecolatina-green);
     }
 
-    .hud-grid-item.selected.right-aligned .benefit-title:after {
-        content: '';
-        border-bottom: 8px solid var(--ecolatina-soft-gray);
-        width: 50%;
-        position: absolute;
-        bottom: -8px;
-        right: 0;
-    }
-    .hud-grid-item.selected.left-aligned .benefit-title:after {
-        content: '';
-        border-bottom: 8px solid var(--ecolatina-soft-gray);
-        width: 50%;
-        position: absolute;
-        bottom: -8px;
-        left: 0;
-    }
     .hud-grid-item.top-aligned {
         align-items: flex-start;
     }
@@ -320,10 +306,16 @@
         font-size: 2.5rem;
         font-weight: 300;
     }
-    .benefit-description p {
-        font-size: 1rem;
+    #benefit-subtitle {
+        color: var(--ecolatina-green);
+        text-transform: uppercase;
+        font-size: 2rem;
         font-weight: 300;
-        color: var(--ecolatina-dark-gray);
+    }
+    .benefit-description p {
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: black;
     }
     .footer {
         height: 20vh;
@@ -449,6 +441,7 @@
 
         #ondas {
             width: 100%;
+            transform: translate(0, -50px);
             /* transform: translateY(-25%); */
         }
         .title h1 {
@@ -559,14 +552,14 @@
         .hud-grid-item .benefit-title span {
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--ecolatina-gray);
+            color: var(--ecolatina-dark-gray);
             text-align: center;
         }
 
         .hud-grid-item .benefit-title p {
             font-size: 0.9rem;
             font-weight: 300;
-            color: var(--ecolatina-gray);
+            color: var(--ecolatina-dark-gray);
             text-align: center;
         }
 
@@ -635,6 +628,33 @@
         .mobile-layout {
             display: block;
         }
+        .subheader {
+            position: relative;
+            width: 90%;
+        }
+        .title h1 {
+            font-size: 2rem;
+            position: relative;
+        }
+    }
+
+    #club-ecolatina-cta-mobile {
+        background: var(--ecolatina-green);
+        color: var(--ecolatina-aqua-2);
+        border: 1px solid var(--ecolatina-aqua-2);
+        border-radius: 4px;
+        padding: 10px 24px;
+        font-size: 1rem;
+        max-width: 220px;
+        width: 90%;
+    }
+    #club-ecolatina-cta-mobile:hover {
+        background-color: var(--ecolatina-green-2);
+        color: white;
+    }
+    #club-ecolatina-cta-mobile:active {
+        background-color: var(--ecolatina-aqua);
+        color: white;
     }
 </style>
 
@@ -688,14 +708,19 @@
                             networking exclusivo.
                         </strong>
                     </p>
-                    <h4>SCROLLEÁ PARA DESCUBRIR TODOS LOS BENEFICIOS</h4>
+                    <h4>SCROLL</h4>
                 </div>
             </section>
             <section class="second-section">
                 <div class="placeholder"></div>
             </section>
             <div class="computer-container">
-                <button id="club-ecolatina-cta">Solicitá tu cotización</button>
+                <button
+                    id="club-ecolatina-cta"
+                    onclick="window.location.href='mailto:club@ecolatina.com?subject=Pedido%20de%20cotización%20Club%20Ecolatina'"
+                >
+                    Solicitá tu cotización
+                </button>
                 <div id="hud-grid">
                     <div
                         class="hud-grid-item left-aligned top-aligned"
@@ -876,7 +901,12 @@
                 <div class="placeholder"></div>
             </section>
             <div class="computer-container">
-                <button id="club-ecolatina-cta">Solicitá tu cotización</button>
+                <button
+                    id="club-ecolatina-cta-tablet"
+                    onclick="window.location.href='mailto:club@ecolatina.com?subject=Pedido%20de%20cotización%20Club%20Ecolatina'"
+                >
+                    Solicitá tu cotización
+                </button>
                 <div id="tablet-grid">
                     <div class="hud-grid-item" data-benefit-index="0">
                         <div class="benefit-title">
@@ -972,6 +1002,53 @@
             </div>
         </section>
     </div>
+    <div class="mobile-layout">
+        <section class="mobile-title">
+            <h1>Inteligencia para <br />decisiones estratégicas</h1>
+
+            <div class="mobile-subheader">
+                <p>
+                    Accedé a la información económica más confiable y análisis
+                    clave para anticiparte al mercado.<br />
+                    <strong>
+                        Con insights diarios, asesoramiento directo y networking
+                        exclusivo.
+                    </strong>
+                </p>
+            </div>
+        </section>
+        <div class="mobile-carousel" id="mobile-carousel">
+            <!-- Slides will be injected by JS -->
+            <div class="mobile-carousel-nav">
+                <button
+                    class="mobile-carousel-arrow"
+                    id="mobile-carousel-prev"
+                    aria-label="Anterior"
+                >
+                    &#8592;
+                </button>
+                <button
+                    class="mobile-carousel-arrow"
+                    id="mobile-carousel-next"
+                    aria-label="Siguiente"
+                >
+                    &#8594;
+                </button>
+            </div>
+            <div
+                class="mobile-carousel-indicators"
+                id="mobile-carousel-indicators"
+            ></div>
+        </div>
+        <div class="mobile-cta-container">
+            <button
+                id="club-ecolatina-cta-mobile"
+                onclick="window.location.href='mailto:club@ecolatina.com?subject=Pedido%20de%20cotización%20Club%20Ecolatina'"
+            >
+                Solicitá tu cotización
+            </button>
+        </div>
+    </div>
 </div>
 
 <!-- Motion.js from CDN -->
@@ -1031,6 +1108,8 @@
             line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743476265/hud-top-left_xvdmht.svg',
             lineSelected:
                 'https://res.cloudinary.com/duykgwmak/image/upload/v1744425525/hud-top-left-selected_qia7bz.svg',
+            mobileImg:
+                'https://res.cloudinary.com/duykgwmak/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1746478313/Pantallas_mobile-06_fa8v6j.png',
         },
         {
             title: '<span>Información <br/>estratégica diaria</span>',
@@ -1041,6 +1120,8 @@
             line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475680/hud-top-right_zgnehr.svg',
             lineSelected:
                 'https://res.cloudinary.com/duykgwmak/image/upload/v1744425506/hud-top-right-selected_k5ggy6.svg',
+            mobileImg:
+                'https://res.cloudinary.com/duykgwmak/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1746478312/Pantallas_mobile-05_ubxsto.png',
         },
         {
             title: '<span>Networking High Level<br /></span><p>Webinars, encuentros in-house</p>',
@@ -1051,6 +1132,8 @@
             line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743477081/hud-mid-left_toqfxw.svg',
             lineSelected:
                 'https://res.cloudinary.com/duykgwmak/image/upload/v1744425569/hud-mid-left-selected_ng7tsc.svg',
+            mobileImg:
+                'https://res.cloudinary.com/duykgwmak/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1746478312/Pantallas_mobile-03_nh4h62.png',
         },
         {
             title: '<span>Noticias on-demand<br /></span><p>Appvisor</p>',
@@ -1061,6 +1144,8 @@
             line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-mid-right_nggbe0.svg',
             lineSelected:
                 'https://res.cloudinary.com/duykgwmak/image/upload/v1744425589/hud-mid-right-selected_uqwjrf.svg',
+            mobileImg:
+                'https://res.cloudinary.com/duykgwmak/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1746478312/Pantallas_mobile-04_kazmkt.png',
         },
         {
             title: '<span>Contacto directo<br />con economistas</span>',
@@ -1071,6 +1156,8 @@
             line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743477210/hud-bottom-left_y0i763.svg',
             lineSelected:
                 'https://res.cloudinary.com/duykgwmak/image/upload/v1744425628/hud-bottom-left-selected_ze0pxy.svg',
+            mobileImg:
+                'https://res.cloudinary.com/duykgwmak/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1746478311/Pantallas_mobile-01_cfbsy5.png',
         },
         {
             title: '<span>Mejor precio del mercado</span>',
@@ -1081,10 +1168,59 @@
             line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-bottom-right_pu41hq.svg',
             lineSelected:
                 'https://res.cloudinary.com/duykgwmak/image/upload/v1744425647/hud-bottom-right-selected_vqk0lk.svg',
+            mobileImg:
+                'https://res.cloudinary.com/duykgwmak/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1746478311/Pantallas_mobile-02_yivrew.png',
         },
     ];
 
     document.addEventListener('DOMContentLoaded', () => {
+        const carousel = document.getElementById('mobile-carousel');
+        const indicators = document.getElementById(
+            'mobile-carousel-indicators'
+        );
+        let current = 0;
+        function renderSlide(idx) {
+            const b = benefits[idx];
+            let slide = document.createElement('div');
+            slide.className = 'mobile-carousel-slide';
+            slide.innerHTML = `
+                    <img class="mobile-carousel-image" src="${b.mobileImg}" alt="${b.title}" />
+                    <div class="mobile-carousel-title">${b.title}</div>
+                    <div class="mobile-carousel-description">${b.description}</div>
+                `;
+            const old = carousel.querySelector('.mobile-carousel-slide');
+            if (old) carousel.removeChild(old);
+            carousel.insertBefore(
+                slide,
+                carousel.querySelector('.mobile-carousel-nav')
+            );
+        }
+        function renderIndicators(idx) {
+            indicators.innerHTML = '';
+            for (let i = 0; i < benefits.length; i++) {
+                const dot = document.createElement('div');
+                dot.className =
+                    'mobile-carousel-indicator' + (i === idx ? ' active' : '');
+                dot.addEventListener('click', () => {
+                    current = i;
+                    renderSlide(current);
+                    renderIndicators(current);
+                });
+                indicators.appendChild(dot);
+            }
+        }
+        document.getElementById('mobile-carousel-prev').onclick = function () {
+            current = (current - 1 + benefits.length) % benefits.length;
+            renderSlide(current);
+            renderIndicators(current);
+        };
+        document.getElementById('mobile-carousel-next').onclick = function () {
+            current = (current + 1) % benefits.length;
+            renderSlide(current);
+            renderIndicators(current);
+        };
+        renderSlide(current);
+        renderIndicators(current);
         // Calculate spacing on DOM load
         calculateSpacing();
 
@@ -1250,7 +1386,12 @@
 
         Motion.inView('title', (inView, info) => {
             Motion.animate(titleText, { opacity: 1 }, { duration: 0.2 });
-            Motion.animate(ondas, { opacity: 1, scale: 1 }, { duration: 0.5 });
+            Motion.animate(cta, { opacity: 1 }, { duration: 0.5 });
+            Motion.animate(
+                ondas,
+                { opacity: 0.5, scale: 1 },
+                { duration: 0.5 }
+            );
             ondas.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center',
@@ -1283,13 +1424,17 @@
                 },
                 { duration: 0.5 }
             );
-
+            Motion.animate(
+                ondas,
+                { opacity: 0, scale: 1.2, transform: 'translate(0, -50px)' },
+                { duration: 0.5 }
+            );
             Motion.animate(
                 hudGrid,
                 {
                     opacity: 1,
                     visibility: 'visible',
-                    transform: 'translate(-50%, calc(-80%))',
+                    transform: 'translate(-50%, calc(-100%))',
                 },
                 { duration: 1 }
             );
@@ -1311,7 +1456,7 @@
                 topComputer,
                 {
                     transform:
-                        'translate(-50%, calc(-88% + var(--header-height)))',
+                        'translate(-50%, calc(-110% + var(--header-height)))',
                 },
                 { duration: 0.5 }
             );
@@ -1319,7 +1464,7 @@
                 midComputer,
                 {
                     transform:
-                        'translate(-50%, calc(-88% + var(--header-height)))',
+                        'translate(-50%, calc(-110% + var(--header-height)))',
                 },
                 { duration: 0.5 }
             );
@@ -1327,7 +1472,16 @@
                 bottomComputer,
                 {
                     transform:
-                        'translate(-50%, calc(-88% + var(--header-height)))',
+                        'translate(-50%, calc(-110% + var(--header-height)))',
+                },
+                { duration: 0.5 }
+            );
+            Motion.animate(
+                cta,
+                {
+                    transform:
+                        'translate(-50%, calc(-20% + var(--header-height)))',
+                    opacity: 0,
                 },
                 { duration: 0.5 }
             );
@@ -1338,7 +1492,7 @@
                     {
                         opacity: 1,
                         transform:
-                            'translate(-50%, calc(-90% + var(--header-height)))',
+                            'translate(-50%, calc(-86% + var(--header-height)))',
                     },
                     { duration: 0.3 }
                 );
@@ -1346,7 +1500,7 @@
                     midComputer,
                     {
                         transform:
-                            'translate(-50%, calc(-90% + var(--header-height)))',
+                            'translate(-50%, calc(-86% + var(--header-height)))',
                     },
                     { duration: 0.3 }
                 );
@@ -1354,7 +1508,7 @@
                     bottomComputer,
                     {
                         transform:
-                            'translate(-50%, calc(-90% + var(--header-height)))',
+                            'translate(-50%, calc(-86% + var(--header-height)))',
                     },
                     { duration: 0.3 }
                 );
@@ -1368,7 +1522,23 @@
                     },
                     { duration: 0.5 }
                 );
-
+                Motion.animate(
+                    ondas,
+                    {
+                        opacity: 0.5,
+                        scale: 1,
+                        transform: 'translate(0, -150px)',
+                    },
+                    { duration: 0.5 }
+                );
+                Motion.animate(
+                    cta,
+                    {
+                        transform: 'translate(-50%, calc(10%))',
+                        opacity: 1,
+                    },
+                    { duration: 0.5 }
+                );
                 Motion.animate(
                     benefitDescriptionContainer,
                     {

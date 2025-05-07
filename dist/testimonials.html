@@ -1,12 +1,17 @@
 <div class="testimonials-container">
-    <script src="https://cdn.jsdelivr.net/npm/motion@10.16.4/dist/motion.min.js"></script>
-    <button class="nacho-prev-btn">❮</button>
-    <div class="testimonials-carousel">
-        <!-- Testimonials will be populated here -->
+    <h2 id="testimonial-title">
+        Las empresas más grandes del país ya son parte del club.
+    </h2>
+    <div class="testimonials-flex-row">
+        <!-- Testimonials will be rendered here -->
     </div>
-    <button class="nacho-next-btn">❯</button>
-    <div class="carousel-controls">
-        <div class="dots-container"></div>
+    <div class="testimonial-cta">
+        <a
+            href="mailto:club@ecolatina.com?subject=Pedido%20de%20cotización%20Club%20Ecolatina"
+            class="testimonial-cta-button"
+        >
+            Solicitá tu cotización
+        </a>
     </div>
 </div>
 
@@ -28,149 +33,110 @@
         --marquee-height: 80px;
     }
     .testimonials-container {
-        max-width: 800px;
+        max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
-        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-
-    .testimonials-carousel {
-        overflow: hidden;
-        position: relative;
-        min-height: 400px;
+    #testimonial-title {
+        color: var(--ecolatina-green);
+        font-family: 'open sans';
+        font-size: 2rem;
+        font-weight: 700;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    .testimonials-flex-row {
         display: flex;
-        align-items: center;
+        flex-direction: row;
+        gap: 32px;
         width: 100%;
+        justify-content: center;
+        margin-bottom: 32px;
     }
-
-    .testimonial-slide {
-        position: absolute;
-        width: 100%;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-        text-align: center;
-        padding: 20px;
-        left: 0;
-        right: 0;
-    }
-
-    .testimonial-slide.active {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .testimonial-content {
-        background: #ffffff;
+    .testimonial-card {
+        background: #fff;
         border-radius: 10px;
-        padding: 30px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin: 0 40px;
-        min-height: 150px;
+        padding: 30px 24px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+        max-width: 320px;
+        min-width: 0;
+        flex: 1 1 0;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
-
-    .testimonial-content p {
-        margin: 0;
-        line-height: 1.6;
+    .testimonial-card .testimonial-author {
         margin-bottom: 20px;
     }
-
-    .testimonial-author {
-        margin-bottom: 20px;
-    }
-
-    .testimonial-author img {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
+    .testimonial-card .testimonial-author img {
+        width: 80%;
+        max-width: 120px;
+        max-height: 120px;
         margin-bottom: 10px;
-        border: 3px solid var(--ecolatina-aqua);
     }
-
-    .testimonial-content .name {
+    .testimonial-card .testimonial-author-name {
         font-weight: bold;
         color: #333;
         margin-bottom: 5px;
     }
-
-    .testimonial-content .title {
+    .testimonial-card .testimonial-author-title {
         color: #666;
         font-size: 0.9em;
     }
-
-    .carousel-controls {
-        margin-top: 20px;
+    .testimonial-card p {
+        margin: 0 0 20px 0;
+        line-height: 1.6;
+    }
+    .testimonial-cta {
         display: flex;
         justify-content: center;
+        margin-top: 10px;
         width: 100%;
     }
-
-    .nacho-prev-btn,
-    .nacho-next-btn {
-        background: var(--ecolatina-green);
+    .testimonial-cta-button {
+        width: 50vw;
+        max-width: 200px;
+        background-color: var(--ecolatina-green);
+        font-size: 1rem;
+        color: var(--ecolatina-aqua-2);
+        border: 1px solid var(--ecolatina-aqua-2);
+        border-radius: 4px;
+        padding: 10px;
+        z-index: 200;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        margin-bottom: 80px;
+    }
+    .testimonial-cta-button:hover {
+        background-color: var(--ecolatina-green-2);
         color: white;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        font-size: 18px;
-        transition: background-color 0.3s;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 2;
     }
-
-    .nacho-prev-btn {
-        left: -20px;
+    .testimonial-cta-button:active {
+        background-color: var(--ecolatina-aqua);
+        color: white;
     }
-
-    .nacho-next-btn {
-        right: -20px;
-    }
-
-    .nacho-prev-btn:hover,
-    .nacho-next-btn:hover {
-        background: var(--ecolatina-green-2);
-    }
-
-    .dots-container {
-        display: flex;
-        gap: 8px;
-    }
-
-    .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #ccc;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .dot.active {
-        background: var(--ecolatina-green-2);
-    }
-
-    @media (max-width: 600px) {
-        .nacho-prev-btn {
-            left: 0;
+    @media (max-width: 900px) {
+        .testimonials-flex-row {
+            gap: 16px;
         }
-
-        .nacho-next-btn {
-            right: 0;
+        .testimonial-card {
+            padding: 24px 10px;
         }
-
-        .testimonial-content {
-            margin: 0 20px;
+    }
+    @media (max-width: 700px) {
+        .testimonials-flex-row {
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+        }
+        .testimonial-card {
+            max-width: 95vw;
+            width: 100%;
         }
     }
 </style>
@@ -182,177 +148,39 @@
                 'Club Ecolatina ha transformado por completo mi comprensión de la economía. Sus análisis profundos y perspectivas únicas son invaluables.',
             author: 'María González',
             title: 'CEO, Inversiones Futuro',
-            image: 'https://randomuser.me/api/portraits/women/1.jpg',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Google-flutter-logo.svg',
         },
         {
             content:
                 'La calidad de los informes y el nivel de detalle en los análisis económicos son excepcionales. Una herramienta indispensable para la toma de decisiones.',
             author: 'Carlos Rodríguez',
             title: 'Director Financiero, Grupo Industrial',
-            image: 'https://randomuser.me/api/portraits/men/1.jpg',
+            image: 'https://www.cdnlogo.com/logos/a/35/asus.svg',
         },
         {
             content:
                 'El equipo de Club Ecolatina ofrece una visión única del mercado. Sus pronósticos han sido fundamentales para nuestra estrategia de negocio.',
             author: 'Ana Martínez',
             title: 'Gerente de Inversiones, Banco Nacional',
-            image: 'https://randomuser.me/api/portraits/women/2.jpg',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg',
         },
     ];
 
-    const createCarousel = () => {
-        // State
-        let currentSlide = 0;
-        let autoAdvanceInterval = null;
-
-        // DOM Elements
-        const carousel = document.querySelector('.testimonials-carousel');
-        const dotsContainer = document.querySelector('.dots-container');
-
-        // Animation helpers
-        const animateSlide = (slide, props, options) => {
-            return Motion.animate(slide, props, {
-                duration: 0.2,
-                ...options,
-            });
-        };
-
-        const getDirectionOffsets = (newIndex) => {
-            const direction =
-                newIndex > currentSlide
-                    ? { enter: ['50px', '0px'], exit: ['0px', '-50px'] }
-                    : { enter: ['-50px', '0px'], exit: ['0px', '50px'] };
-
-            // Handle wrapping cases
-            if (newIndex === 0 && currentSlide === testimonials.length - 1) {
-                return { enter: ['50px', '0px'], exit: ['0px', '-50px'] };
-            }
-            if (newIndex === testimonials.length - 1 && currentSlide === 0) {
-                return { enter: ['-50px', '0px'], exit: ['0px', '50px'] };
-            }
-
-            return direction;
-        };
-
-        // Core functions
-        const showSlide = (index) => {
-            const slides = document.querySelectorAll('.testimonial-slide');
-            const dots = document.querySelectorAll('.dot');
-            const direction = getDirectionOffsets(index);
-
-            slides.forEach((slide, i) => {
-                if (i === index) {
-                    slide.classList.add('active');
-                    animateSlide(
-                        slide,
-                        {
-                            opacity: [0, 1],
-                            scale: [0.95, 1],
-                            x: direction.enter,
-                        },
-                        { easing: 'ease-out' }
-                    );
-                } else if (slide.classList.contains('active')) {
-                    animateSlide(
-                        slide,
-                        {
-                            opacity: [1, 0],
-                            scale: [1, 0.95],
-                            x: direction.exit,
-                        },
-                        { easing: 'ease-in' }
-                    ).finished.then(() => slide.classList.remove('active'));
-                }
-            });
-
-            dots.forEach((dot, i) =>
-                dot.classList.toggle('active', i === index)
-            );
-            currentSlide = index;
-        };
-
-        const createSlide = (testimonial, index) => {
-            const slide = document.createElement('div');
-            slide.className = 'testimonial-slide';
-            slide.innerHTML = `
-                <div class="testimonial-content">
-                    <div class="testimonial-author">
-                        <img src="${testimonial.image}" alt="${testimonial.author}">
-                    </div>
-                    <p>${testimonial.content}</p>
-                    <div class="name">${testimonial.author}</div>
-                    <div class="title">${testimonial.title}</div>
-                </div>
-            `;
-            return slide;
-        };
-
-        const createDot = (index) => {
-            const dot = document.createElement('div');
-            dot.className = 'dot';
-            dot.addEventListener('click', () => {
-                stopAutoAdvance();
-                showSlide(index);
-            });
-            return dot;
-        };
-
-        // Auto-advance functions
-        const startAutoAdvance = () => {
-            stopAutoAdvance();
-            autoAdvanceInterval = setInterval(() => {
-                const nextIndex = (currentSlide + 1) % testimonials.length;
-                showSlide(nextIndex);
-            }, 3000);
-        };
-
-        const stopAutoAdvance = () => {
-            if (autoAdvanceInterval) {
-                clearInterval(autoAdvanceInterval);
-                autoAdvanceInterval = null;
-            }
-        };
-
-        // Navigation functions
-        const nextSlide = () => {
-            stopAutoAdvance();
-            showSlide((currentSlide + 1) % testimonials.length);
-        };
-
-        const previousSlide = () => {
-            stopAutoAdvance();
-            showSlide(
-                (currentSlide - 1 + testimonials.length) % testimonials.length
-            );
-        };
-
-        // Initialize carousel
-        const initialize = () => {
-            // Create slides
-            testimonials.forEach((testimonial, index) => {
-                const slide = createSlide(testimonial, index);
-                carousel.appendChild(slide);
-                const dot = createDot(index);
-                dotsContainer.appendChild(dot);
-            });
-
-            // Setup navigation
-            document
-                .querySelector('.nacho-prev-btn')
-                .addEventListener('click', previousSlide);
-            document
-                .querySelector('.nacho-next-btn')
-                .addEventListener('click', nextSlide);
-
-            // Start carousel
-            showSlide(0);
-            startAutoAdvance();
-        };
-
-        // Initialize the carousel
-        initialize();
-    };
-
-    // Start the carousel when DOM is loaded
-    document.addEventListener('DOMContentLoaded', createCarousel);
+    // Render testimonials as static cards
+    window.addEventListener('DOMContentLoaded', () => {
+        const row = document.querySelector('.testimonials-flex-row');
+        testimonials.forEach((t) => {
+            const card = document.createElement('div');
+            card.className = 'testimonial-card';
+            card.innerHTML = `
+            <div class="testimonial-author">
+                <img src="${t.image}" alt="${t.author}">
+            </div>
+            <p>${t.content}</p>
+            <div class="testimonial-author-name">${t.author}</div>
+            <div class="testimonial-author-title">${t.title}</div>
+        `;
+            row.appendChild(card);
+        });
+    });
 </script>

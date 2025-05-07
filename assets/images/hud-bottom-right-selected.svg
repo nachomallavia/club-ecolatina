@@ -2,6 +2,6 @@
 <mask id="path-1-inside-1_2164_2757" fill="white">
 <rect width="24" height="24" rx="2"/>
 </mask>
-<rect width="24" height="24" rx="2" stroke="#d8d8d5" fill="#d8d8d5" stroke-width="6" mask="url(#path-1-inside-1_2164_2757)"/>
-<path d="M23 23L89.1421 89.1421C92.8929 92.8929 97.9799 95 103.284 95H468" stroke="#d8d8d5" stroke-width="3"/>
+<rect width="24" height="24" rx="2" stroke="#00645d" fill="#00645d" stroke-width="6" mask="url(#path-1-inside-1_2164_2757)"/>
+<path d="M23 23L89.1421 89.1421C92.8929 92.8929 97.9799 95 103.284 95H468" stroke="#00645d" stroke-width="3"/>
 </svg>

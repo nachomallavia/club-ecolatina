@@ -1,0 +1,951 @@
+<!-- Club Ecolatina Widget -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+    :root {
+        --ecolatina-green: #00625d;
+        --ecolatina-green-2: #34a19b;
+        --ecolatina-aqua: #7bbfb7;
+        --ecolatina-aqua-2: #b6f4ed;
+        --ecolatina-light-gray: #f7f7f7;
+        --ecolatina-dark-gray: #606060;
+        --ecolatina-gray: #939598;
+        --ecolatina-soft-gray: #d8d8d5;
+        --header-height: 100px;
+        --footer-height: 100px;
+        --marquee-delay: -30s;
+        --marquee-duration: 20s;
+        --marquee-items: 12;
+        --marquee-height: 80px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Open Sans', sans-serif;
+        /* color: var(--ecolatina-green); */
+        scroll-behavior: smooth;
+        margin-block-end: 0;
+        margin-block-start: 0;
+    }
+    .main-container {
+        background-color: var(--ecolatina-light-gray);
+    }
+    .scroll-container {
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scroll-snap-type: y mandatory;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* background-color: var(--ecolatina-light-gray); */
+    }
+    .title {
+        width: 100%;
+        height: 105vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        scroll-snap-align: start;
+    }
+    .title h1 {
+        color: var(--ecolatina-green);
+        font-size: 2.65rem;
+        font-weight: 700;
+        text-align: center;
+        line-height: 1.125;
+        margin-top: 2rem;
+    }
+
+    #ondas {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        opacity: 1;
+        z-index: 1;
+        /* height: 664px; */
+    }
+
+    .subheader {
+        position: absolute;
+        bottom: var(--marquee-height);
+        color: var(--ecolatina-green);
+        left: 50%;
+        transform: translate(-50%, -120%);
+        text-align: center;
+    }
+    .subheader h4 {
+        margin-top: 2rem;
+        font-size: 1rem;
+        color: var(--ecolatina-dark-gray);
+    }
+    .computer-container {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+    }
+
+    #mid-computer {
+        filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+        z-index: 10;
+    }
+
+    #top-computer {
+        filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+        z-index: 12;
+        opacity: 1;
+    }
+    #bottom-computer {
+        filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+        z-index: 8;
+    }
+    .computer {
+        width: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, calc(-86% + var(--header-height)));
+    }
+    #club-ecolatina-cta {
+        position: fixed;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, 10%);
+        width: 50vw;
+        max-width: 200px;
+        background-color: var(--ecolatina-green);
+        font-size: 1rem;
+        color: var(--ecolatina-aqua-2);
+        border: 1px solid var(--ecolatina-aqua-2);
+        border-radius: 4px;
+        padding: 10px;
+        z-index: 200;
+        cursor: pointer;
+    }
+    #club-ecolatina-cta:hover {
+        background-color: var(--ecolatina-green-2);
+        color: white;
+    }
+    #club-ecolatina-cta:active {
+        background-color: var(--ecolatina-aqua);
+        color: white;
+    }
+    .second-section {
+        width: 100%;
+        height: 95vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--ecolatina-light-gray);
+    }
+    #hud-grid {
+        aspect-ratio: 3/1;
+        scroll-snap-align: start;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        column-gap: 0;
+        width: 75%;
+
+        z-index: 25;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        visibility: hidden;
+    }
+    .hud-grid-item {
+        font-size: 1rem;
+        font-weight: 400;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: var(--ecolatina-dark-gray);
+    }
+    .hud-grid-item .benefit-title.left-aligned {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .hud-grid-item .benefit-title.right-aligned {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .hud-grid-item .benefit-title span {
+        font-size: 1.2rem;
+        font-weight: 700;
+        /* width: 100%; */
+        line-height: 1.2rem;
+        text-shadow: 0 0 12px rgba(255, 255, 255, 1);
+        color: var(--ecolatina-dark-gray);
+    }
+    .hud-grid-item .benefit-title p {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.2rem;
+        color: var(--ecolatina-dark-gray);
+        margin-block-end: 0;
+        margin-block-start: 0;
+    }
+    .hud-grid-item img {
+        width: 100%;
+        align-self: start;
+        transform: scale(1.25);
+        transform-origin: left center;
+    }
+    .hud-grid-item.right-aligned img {
+        align-self: end;
+        transform-origin: right center;
+    }
+    .hud-grid-item:hover {
+        cursor: pointer;
+    }
+    .hud-grid-item:hover .benefit-title {
+        color: var(--ecolatina-green-2);
+    }
+    .hud-grid-item.selected .benefit-title {
+        font-weight: 700;
+        color: var(--ecolatina-green);
+        position: relative;
+    }
+    .hud-grid-item.selected .benefit-title span {
+        color: var(--ecolatina-green);
+    }
+    .hud-grid-item.selected .benefit-title p {
+        color: var(--ecolatina-green);
+    }
+
+    .hud-grid-item.top-aligned {
+        align-items: flex-start;
+    }
+    .hud-grid-item.top-aligned img {
+        transform-origin: left top;
+        margin-top: 0.5rem;
+    }
+    .hud-grid-item.top-aligned.right-aligned img {
+        transform-origin: right top;
+    }
+    .hud-grid-item.top-aligned .benefit-title {
+        margin-bottom: 0rem;
+    }
+    .hud-grid-item.bottom-aligned {
+        align-items: flex-end;
+    }
+    .hud-grid-item.bottom-aligned img {
+        transform-origin: left bottom;
+    }
+    .hud-grid-item.bottom-aligned.right-aligned img {
+        transform-origin: right bottom;
+    }
+    .hud-grid-item.bottom-aligned .benefit-title {
+        margin-bottom: -4rem;
+    }
+    .hud-grid-item.left-aligned {
+        text-align: left;
+    }
+    .hud-grid-item.right-aligned {
+        text-align: right;
+        align-items: flex-end;
+    }
+    .hud-grid-item.center-aligned {
+        align-items: baseline;
+    }
+    .hud-grid-item .benefit-title {
+        font-size: 1.2rem;
+        font-weight: 400;
+        width: 100%;
+        line-height: 1.2;
+        text-shadow: 0 0 12px rgba(255, 255, 255, 1);
+    }
+    .hud-grid-item.center-aligned .benefit-title {
+        margin-bottom: -0.5rem;
+    }
+    .hud-grid-item.empty.left-aligned {
+        justify-content: flex-start;
+    }
+    .hud-grid-item.empty.right-aligned {
+        justify-content: flex-end;
+    }
+
+    .square {
+        width: 1.25rem;
+        height: 1.25rem;
+        /* border: 2px solid var(--ecolatina-aqua); */
+        border-radius: 0.25rem;
+    }
+    .benefit-description {
+        text-align: center;
+        margin-top: 1rem;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        width: 100%;
+        position: absolute;
+        bottom: calc(var(--marquee-height) + 10rem);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+    }
+    .benefit-description span {
+        color: var(--ecolatina-green);
+        text-transform: uppercase;
+        font-size: 2.5rem;
+        font-weight: 300;
+    }
+    #benefit-subtitle {
+        color: var(--ecolatina-green);
+        text-transform: uppercase;
+        font-size: 2rem;
+        font-weight: 300;
+    }
+    .benefit-description p {
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: black;
+    }
+    .footer {
+        height: 20vh;
+    }
+    .nacho-marquee-container {
+        width: 100%;
+        height: var(--marquee-height);
+        position: relative;
+        background-color: black;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* transform: translateY(-48px); */
+    }
+
+    .nacho-reports-marquee {
+        position: relative;
+        width: 100%;
+        height: var(--marquee-height);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nacho-reports-marquee p {
+        white-space: nowrap;
+        text-transform: uppercase;
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: white;
+        margin-block-end: 0;
+        margin-block-start: 0;
+        animation: scroll 40s linear infinite;
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(-25%);
+        }
+    }
+
+    /* Base styles for largest screens (1920px and above) in landscape */
+    @media (orientation: landscape) and (min-width: 1920px) {
+        /* Add any specific adjustments for very large screens */
+        #hud-grid {
+            width: 75%; /* Slightly smaller relative width for very large screens */
+            max-width: 1800px; /* Prevent excessive stretching */
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    /* Your current styles should be wrapped in this media query */
+    @media (orientation: landscape) and (min-width: 1600px) and (max-width: 1919px) {
+        /* Your current styles go here - this is your "default" design range */
+        #hud-grid {
+            width: 80%;
+            aspect-ratio: 3/1;
+        }
+        /* ... other current styles ... */
+    }
+
+    /* Breakpoint for 1440px-1599px */
+    @media (orientation: landscape) and (min-width: 1440px) and (max-width: 1599px) {
+        :root {
+            --marquee-height: 64px;
+        }
+        #hud-grid {
+            width: 85%; /* Slightly wider relative to screen */
+            aspect-ratio: 2.8/1; /* Slightly less wide */
+            transform: translate(-50%, -50%);
+        }
+
+        .title h1 {
+            font-size: 2.4rem; /* Slightly smaller than your current 2.65rem */
+        }
+        .subheader {
+            bottom: 15%;
+            width: 80%;
+            transform: translate(-50%, -80%);
+        }
+        .computer {
+            transform: translate(-50%, calc(-95% + var(--header-height)));
+        }
+        .hud-grid-item .benefit-title {
+            font-size: 1.1rem; /* Slightly smaller than your current 1.2rem */
+        }
+        .hud-grid-item.top-aligned .benefit-title {
+            margin-bottom: -0.1rem;
+        }
+        .hud-grid-item.bottom-aligned .benefit-title {
+            margin-bottom: -3.4rem;
+        }
+
+        #club-ecolatina-cta {
+            transform: translate(-50%, calc(-50%));
+        }
+        .benefit-description {
+            bottom: calc(var(--marquee-height) + 7rem);
+        }
+        .benefit-description span {
+            font-size: 2rem;
+        }
+        .nacho-reports-marquee p {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* Breakpoint for 1366px-1439px */
+    @media (orientation: landscape) and (min-width: 1366px) and (max-width: 1439px) {
+        :root {
+            --marquee-height: 48px;
+        }
+        .hud-grid {
+            width: 75%;
+            aspect-ratio: 2.5/1;
+            transform: translateY(-12%);
+        }
+
+        #ondas {
+            width: 100%;
+            /* transform: translateY(-25%); */
+        }
+        .title h1 {
+            font-size: 2rem;
+        }
+        .subheader {
+            bottom: 0%;
+            width: 80%;
+            transform: translate(-50%, -60%);
+        }
+        .computer {
+            transform: translate(-50%, calc(-95% + var(--header-height)));
+        }
+        .hud-grid-item .benefit-title {
+            font-size: 1rem;
+        }
+        .hud-grid-item.bottom-aligned .benefit-title {
+            margin-bottom: -3rem;
+        }
+
+        #club-ecolatina-cta {
+            transform: translate(-50%, calc(-0%));
+        }
+        .benefit-description {
+            bottom: calc(var(--marquee-height) + 4rem);
+        }
+        .benefit-description span {
+            font-size: 2rem;
+        }
+        .nacho-reports-marquee p {
+            font-size: 1.1rem;
+        }
+    }
+
+    /* Portrait layout styles for tablets */
+    @media (orientation: portrait) and (min-width: 768px) {
+        :root {
+            --marquee-height: 64px;
+        }
+
+        .title h1 {
+            font-size: 3rem;
+            margin-top: 15rem;
+        }
+
+        .subheader {
+            bottom: 20%;
+            width: 90%;
+        }
+
+        .computer-container {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+        }
+
+        .computer {
+            width: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, calc(-50% - var(--header-height)));
+        }
+
+        #tablet-grid {
+            width: 90%;
+            aspect-ratio: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1.5rem;
+            z-index: 25;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .hud-grid-item {
+            font-size: 0.9rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 120px;
+            transition: all 0.3s ease;
+        }
+
+        .hud-grid-item .benefit-title {
+            font-size: 1rem;
+            font-weight: 400;
+            width: 100%;
+            line-height: 1.2;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .hud-grid-item .benefit-title span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ecolatina-dark-gray);
+            text-align: center;
+        }
+
+        .hud-grid-item .benefit-title p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--ecolatina-dark-gray);
+            text-align: center;
+        }
+
+        .hud-grid-item.selected {
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .hud-grid-item.selected .benefit-title span,
+        .hud-grid-item.selected .benefit-title p {
+            color: var(--ecolatina-green);
+        }
+
+        .benefit-description {
+            bottom: calc(var(--marquee-height) + 2rem);
+            width: 90%;
+        }
+
+        .benefit-description span {
+            font-size: 1.6rem;
+        }
+
+        .benefit-description p {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        #club-ecolatina-cta {
+            top: 55%;
+        }
+        #tablet-benefit-description {
+            bottom: 20%;
+        }
+        #tablet-benefit-description span {
+            font-size: 2rem;
+        }
+        #tablet-benefit-description p {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* Hide all layouts by default */
+    .landscape-layout,
+    .portrait-layout,
+    .mobile-layout {
+        display: none;
+    }
+
+    /* Show landscape layout for landscape orientation on larger screens */
+    @media (orientation: landscape) and (min-width: 1024px) {
+        .landscape-layout {
+            display: block;
+        }
+    }
+
+    /* Show portrait layout for portrait orientation on tablets and larger */
+    @media (orientation: portrait) and (min-width: 768px) {
+        .portrait-layout {
+            display: block;
+        }
+    }
+
+    /* Show mobile layout for smaller screens (both orientations) */
+    @media (max-width: 767px) {
+        .mobile-layout {
+            display: block;
+        }
+        .mobile-carousel {
+            width: 100vw;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+            background: var(--ecolatina-light-gray);
+            padding: 2rem 0 3.5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .mobile-carousel-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            min-height: 350px;
+            transition: opacity 0.3s;
+        }
+        .mobile-carousel-image {
+            width: 80vw;
+            max-width: 320px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 1rem;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+            background: #fff;
+        }
+        .mobile-carousel-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ecolatina-green);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .mobile-carousel-description {
+            font-size: 1rem;
+            color: var(--ecolatina-dark-gray);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .mobile-carousel-nav {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+        .mobile-carousel-arrow {
+            background: var(--ecolatina-green);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 0.85;
+            transition: background 0.2s;
+        }
+        .mobile-carousel-arrow:active {
+            background: var(--ecolatina-green-2);
+        }
+        .mobile-carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .mobile-carousel-indicator {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: var(--ecolatina-soft-gray);
+            transition: background 0.2s;
+        }
+        .mobile-carousel-indicator.active {
+            background: var(--ecolatina-green);
+        }
+    }
+</style>
+
+<div class="main-container">
+    <link
+        rel="preload"
+        as="image"
+        href="https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu1_kihhid.webp"
+    />
+
+    <div class="mobile-layout">
+        <section class="title">
+            <h1>Inteligencia para <br />decisiones estratégicas</h1>
+
+            <div class="subheader">
+                <p>
+                    Accedé a la información económica más confiable y análisis
+                    clave para anticiparte al mercado.<br />
+                    <strong>
+                        Con insights diarios, asesoramiento directo y networking
+                        exclusivo.
+                    </strong>
+                </p>
+                <h4>SCROLLEÁ PARA DESCUBRIR TODOS LOS BENEFICIOS</h4>
+            </div>
+        </section>
+        <div class="mobile-carousel" id="mobile-carousel">
+            <!-- Slides will be injected by JS -->
+            <div class="mobile-carousel-nav">
+                <button
+                    class="mobile-carousel-arrow"
+                    id="mobile-carousel-prev"
+                    aria-label="Anterior"
+                >
+                    &#8592;
+                </button>
+                <button
+                    class="mobile-carousel-arrow"
+                    id="mobile-carousel-next"
+                    aria-label="Siguiente"
+                >
+                    &#8594;
+                </button>
+            </div>
+            <div
+                class="mobile-carousel-indicators"
+                id="mobile-carousel-indicators"
+            ></div>
+        </div>
+        <div
+            style="
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-top: 2rem;
+            "
+        >
+            <button
+                id="club-ecolatina-cta-mobile"
+                style="
+                    background: var(--ecolatina-green);
+                    color: var(--ecolatina-aqua-2);
+                    border: 1px solid var(--ecolatina-aqua-2);
+                    border-radius: 4px;
+                    padding: 10px 24px;
+                    font-size: 1rem;
+                    max-width: 220px;
+                    width: 90%;
+                "
+                onclick="window.location.href='mailto:club@ecolatina.com?subject=Pedido%20de%20cotización%20Club%20Ecolatina'"
+            >
+                Solicitá tu cotización
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Motion.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/motion@10.16.4/dist/motion.min.js"></script>
+
+<script>
+    // Add this before the existing script
+
+    const benefits = [
+        {
+            title: '<span>Gran cobertura</span><p>Completa, transversal,<br/> y una sólida red de alianzas</p>',
+            subtitle: 'Visión integral para toda la organización',
+            description: `<p>Información alineada para toda la empresa, garantizando coherencia en el análisis económico y estratégico.<br/> Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu2_zcn6vf.webp',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743476265/hud-top-left_xvdmht.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744425525/hud-top-left-selected_qia7bz.svg',
+        },
+        {
+            title: '<span>Información <br/>estratégica diaria</span>',
+            subtitle: 'Insights diarios para decisiones estratégicas',
+            description: `<p>Accedé a reportes exclusivos con datos clave y análisis en tiempo real<br/> para respaldar la toma de decisiones</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744395231/compu_informacion_2x_lrgxyc.png',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475680/hud-top-right_zgnehr.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744425506/hud-top-right-selected_k5ggy6.svg',
+        },
+        {
+            title: '<span>Networking High Level<br /></span><p>Webinars, encuentros in-house</p>',
+            subtitle: 'Networking exclusivo con líderes del sector',
+            description: `<p>Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros<br/> con el respaldo de las principales consultoras de Latinoamérica.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744397325/compu_networking_2x_n9mrmj.png',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743477081/hud-mid-left_toqfxw.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744425569/hud-mid-left-selected_ng7tsc.svg',
+        },
+        {
+            title: '<span>Noticias on-demand<br /></span><p>Appvisor</p>',
+            subtitle: 'Actualización en tiempo real',
+            description: `<p>Accedé a información clave en cualquier momento a través de <strong>AppVisor</strong>,<br/> la plataforma líder en inteligencia económica para ejecutivos.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744397325/compu_noticias_2x_moloem.png',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475679/hud-mid-right_nggbe0.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744425589/hud-mid-right-selected_uqwjrf.svg',
+        },
+        {
+            title: '<span>Contacto directo<br />con economistas</span>',
+            subtitle: 'Acceso directo a los principales economistas',
+            description: `<p>Asesoramiento inmediato de nuestros expertos vía WhatsApp,<br/> teléfono o email, cuando tu negocio lo requiera.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744395231/compu_economistas_2x_jdd87n.png',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743477210/hud-bottom-left_y0i763.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744425628/hud-bottom-left-selected_ze0pxy.svg',
+        },
+        {
+            title: '<span>Mejor precio del mercado</span>',
+            subtitle: 'Máximo retorno con la mejor relación costo-beneficio',
+            description: `<p>La inteligencia económica más robusta de Argentina,<br/> optimizando recursos y maximizando el impacto estratégico.</p>`,
+            computer:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu7_fpu6ii.webp',
+            line: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/hud-bottom-right_pu41hq.svg',
+            lineSelected:
+                'https://res.cloudinary.com/duykgwmak/image/upload/v1744425647/hud-bottom-right-selected_vqk0lk.svg',
+        },
+    ];
+
+    // Mobile carousel logic
+    if (window.matchMedia('(max-width: 767px)').matches) {
+        const mobileBenefits = [
+            {
+                image: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475677/compu2_zcn6vf.webp',
+                title: 'Gran cobertura',
+                description:
+                    'Información alineada para toda la empresa, garantizando coherencia en el análisis económico y estratégico. Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica.',
+            },
+            {
+                image: 'https://res.cloudinary.com/duykgwmak/image/upload/v1744395231/compu_informacion_2x_lrgxyc.png',
+                title: 'Información estratégica diaria',
+                description:
+                    'Accedé a reportes exclusivos con datos clave y análisis en tiempo real para respaldar la toma de decisiones.',
+            },
+            {
+                image: 'https://res.cloudinary.com/duykgwmak/image/upload/v1744397325/compu_networking_2x_n9mrmj.png',
+                title: 'Networking High Level',
+                description:
+                    'Accedé a insights exclusivos sobre economía, política, consumo y mercados financieros con el respaldo de las principales consultoras de Latinoamérica. Webinars, encuentros in-house.',
+            },
+            {
+                image: 'https://res.cloudinary.com/duykgwmak/image/upload/v1744397325/compu_noticias_2x_moloem.png',
+                title: 'Noticias on-demand',
+                description:
+                    'Accedé a información clave en cualquier momento a través de AppVisor, la plataforma líder en inteligencia económica para ejecutivos.',
+            },
+            {
+                image: 'https://res.cloudinary.com/duykgwmak/image/upload/v1744395231/compu_economistas_2x_jdd87n.png',
+                title: 'Contacto directo con economistas',
+                description:
+                    'Asesoramiento inmediato de nuestros expertos vía WhatsApp, teléfono o email, cuando tu negocio lo requiera.',
+            },
+            {
+                image: 'https://res.cloudinary.com/duykgwmak/image/upload/v1743475678/compu7_fpu6ii.webp',
+                title: 'Mejor precio del mercado',
+                description:
+                    'La inteligencia económica más robusta de Argentina, optimizando recursos y maximizando el impacto estratégico.',
+            },
+        ];
+        const carousel = document.getElementById('mobile-carousel');
+        const indicators = document.getElementById(
+            'mobile-carousel-indicators'
+        );
+        let current = 0;
+        function renderSlide(idx) {
+            const b = mobileBenefits[idx];
+            let slide = document.createElement('div');
+            slide.className = 'mobile-carousel-slide';
+            slide.innerHTML = `
+                    <img class="mobile-carousel-image" src="${b.image}" alt="${b.title}" />
+                    <div class="mobile-carousel-title">${b.title}</div>
+                    <div class="mobile-carousel-description">${b.description}</div>
+                `;
+            const old = carousel.querySelector('.mobile-carousel-slide');
+            if (old) carousel.removeChild(old);
+            carousel.insertBefore(
+                slide,
+                carousel.querySelector('.mobile-carousel-nav')
+            );
+        }
+        function renderIndicators(idx) {
+            indicators.innerHTML = '';
+            for (let i = 0; i < mobileBenefits.length; i++) {
+                const dot = document.createElement('div');
+                dot.className =
+                    'mobile-carousel-indicator' + (i === idx ? ' active' : '');
+                dot.addEventListener('click', () => {
+                    current = i;
+                    renderSlide(current);
+                    renderIndicators(current);
+                });
+                indicators.appendChild(dot);
+            }
+        }
+        document.getElementById('mobile-carousel-prev').onclick = function () {
+            current =
+                (current - 1 + mobileBenefits.length) % mobileBenefits.length;
+            renderSlide(current);
+            renderIndicators(current);
+        };
+        document.getElementById('mobile-carousel-next').onclick = function () {
+            current = (current + 1) % mobileBenefits.length;
+            renderSlide(current);
+            renderIndicators(current);
+        };
+        renderSlide(current);
+        renderIndicators(current);
+    }
+</script>
